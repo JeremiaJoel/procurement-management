@@ -18,7 +18,7 @@
                 </p>
                 <p>
                     <strong>
-                        Deskripsi:
+                        Spesifikasi:
                     </strong>
                     <span id="modal-deskripsi">
                     </span>
