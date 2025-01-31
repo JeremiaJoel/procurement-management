@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Barang</title>
+    <title>Edit Barang</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/barang.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+
 </head>
 
 <!-- resources/views/permissions/index.blade.php -->
@@ -25,7 +27,7 @@
             </div>
             <header class="flex justify-between items-center mb-6 relative z-10">
                 <h1 class="text-2xl font-bold text-white">
-                    Menu Barang
+                    Menambah Barang
                 </h1>
                 <div class="flex items-center">
                     <form action="{{ route('logout') }}" method="POST">
@@ -41,50 +43,30 @@
                 <nav class="mb-3">
                     <ul class="flex space-x-6">
                         <li>
-                            <p class="text-red-600 border-b-2 border-red-600 pb-2" href="">
+                            <a class="text-gray-500 pb-2 cursor-pointer" href="{{ route('barang.index') }}">
                                 List Kategori Barang
+                            </a>
+                        </li>
+                        <li>
+                            <p class="text-gray-500 pb-2 cursor-pointer" href="{{ route('barang.create') }}">
+                                Menambah Barang
                             </p>
                         </li>
                         <li>
-                            <a class="text-gray-500 cursor-pointer pb-2" href="{{ route('barang.create') }}">
-                                Menambah Barang
-                            </a>
-                        </li>
-                        <li>
-                            <a class="text-gray-500 pb-2 cursor-default" href="#">
+                            <a class="text-red-600 border-b-2 border-red-600 pb-2" href="#">
                                 Edit Barang
                             </a>
                         </li>
-
                     </ul>
                 </nav>
                 <div class="container mx-auto p-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Card 1 -->
-                        @foreach ($categories as $category)
-                            <div
-                                class="bg-white rounded-lg shadow-xl p-4 hover:scale-105 hover:transition-all cursor-pointer">
-                                <div class="text-xl font-bold mb-4 inset-0 text-center">
-                                    {{ $category->nama }}
-                                </div>
-                                <div class="flex justify-center items-center inset-0">
-                                    <a href="{{ route('barang.by-category', $category->id_kategori) }}">
-                                        <img alt="{{ $category->nama }}"
-                                            class="h-full w-full rounded-lg opacity-85 bg-cover" height="50"
-                                            src="{{ asset('img/' . $category->image) }}" />
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                        <!-- Card 2 -->
-                        <!-- Card 3 -->
-                        <!-- Card 4 -->
-                        <!-- Card n -->
+                        <!-- Form add product -->
+                        @include('components.forms.form-edit-barang')
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>

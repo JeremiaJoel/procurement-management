@@ -64,25 +64,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-//Untuk Modal detail spesifikasi barang
-$(document).ready(function () {
-    $(".btn-detail").on("click", function () {
-        var barangId = $(this).data("id");
-
-        $.ajax({
-            url: "/barang/detail/" + barangId,
-            type: "GET",
-            success: function (response) {
-                $("#modal-gambar").attr("src", "/img/" + response.image);
-                $("#modal-nama").text(response.nama);
-                $("#modal-deskripsi").text(response.spesifikasi);
-                $("#exampleModal").modal("show");
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-                alert("Terjadi kesalahan, coba lagi nanti.");
-            },
-        });
-    });
-});

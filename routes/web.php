@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SupplierController;
+use App\Livewire\Barang\Form;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -40,16 +41,25 @@ Route::middleware('auth')->group(function () {
 
     //Routes manajemen User
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    // Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
-    // Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
-    // Route::delete('/roles', [RoleController::class, 'destroy'])->name('roles.destroy');
+    Route::delete('/roles', [RoleController::class, 'destroy'])->name('roles.destroy');
 
     //Routes barang
     Route::get('/kategori-barang', [BarangController::class, 'index'])->name('barang.index');
     Route::get('/kategori-barang/{id}', [BarangController::class, 'showByCategory'])->name('barang.by-category');
     Route::get('/barang/detail/{barangId}', [BarangController::class, 'showDetail']);
+    Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+    Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::post('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+
+
+
+
 
     //Routes Menu Data Supplier
     Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
