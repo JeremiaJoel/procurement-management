@@ -42,7 +42,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <a href="{{ route('roles.edit', $role->id) }}"
                             class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <a href="#" class="ml-2 text-red-600 hover:text-red-900 delete-btn"
+                        <a href="#" class="ml-2 text-red-600 hover:text-red-900 delete-role-btn"
                             data-name="{{ $role->name }}" data-id="{{ $role->id }}">Delete</a>
                     </td>
                 </tr>
@@ -52,69 +52,5 @@
     </tbody>
 </table>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const roleName = this.getAttribute('data-name');
-                const roleId = this.getAttribute('data-id');
-
-                Swal.fire({
-                    title: `Apakah Anda yakin?`,
-                    text: `Role "${roleName}" akan dihapus secara permanen!`,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch("{{ route('roles.destroy') }}", {
-                                method: 'DELETE',
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute(
-                                        'content'),
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    id: roleId
-                                })
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.status) {
-                                    Swal.fire(
-                                        'Terhapus!',
-                                        data.message,
-                                        'success',
-                                    );
-
-                                    // Tambahkan durasi 2 detik sebelum refresh halaman
-                                    setTimeout(() => {
-                                        location.reload();
-                                    }, 1000); // 2000ms = 2 detik
-                                } else {
-                                    Swal.fire(
-                                        'Gagal!',
-                                        data.message,
-                                        'error'
-                                    );
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                Swal.fire(
-                                    'Error!',
-                                    'Terjadi kesalahan. Silakan coba lagi.',
-                                    'error'
-                                );
-                            });
-                    }
-                });
-            });
-        });
-    });
+    const roleDeleteUrl = "{{ route('roles.destroy') }}"
 </script>

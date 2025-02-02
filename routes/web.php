@@ -55,14 +55,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
     Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
     Route::post('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
-    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
-
-
-
-
+    Route::delete('/barang', [BarangController::class, 'destroy'])->name('barang.destroy');
 
     //Routes Menu Data Supplier
     Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+    Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    Route::get('/supplier/detail/{supplierId}', [SupplierController::class, 'showDetail']);
+    Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+    Route::post('/supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('/supplier', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 });
 
 require __DIR__ . '/auth.php';

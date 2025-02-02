@@ -16,7 +16,7 @@ class Supplier extends Model
         'nama',
         'email',
         'contact',
-        'address'
-
+        'address',
+        'image'
     ];
 }

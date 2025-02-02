@@ -47,9 +47,11 @@ class BarangController extends Controller
     {
 
         $categories = Kategori::all();
+        $barang = Barang::all();
 
         return view('barang.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'barang' => $barang
         ]);
     }
 
@@ -102,7 +104,7 @@ class BarangController extends Controller
         }
 
         // Simpan ke database
-        $barang = Barang::create([
+        Barang::create([
             'barang_id' => $barangId,
             'nama' => $request->nama_barang,
             'spesifikasi' => $request->spesifikasi,

@@ -41,7 +41,7 @@
                     <td class="px-6 py-4 whitespace-nowrap  text-sm font-medium">
                         <a href="{{ route('permissions.edit', $permission->id) }}"
                             class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <a href="#" class="ml-2 text-red-600 hover:text-red-900 delete-btn"
+                        <a href="#" class="ml-2 text-red-600 hover:text-red-900 delete-hak-akses-btn"
                             data-id="{{ $permission->id }}" data-name="{{ $permission->name }}">Delete</a>
                     </td>
                 </tr>
@@ -50,3 +50,6 @@
 
     </tbody>
 </table>
+<script>
+    const deletePermissionUrl = "{{ route('permissions.destroy') }}";
+</script>

@@ -39,7 +39,7 @@
                             </i>
                         </button>
                     </div> --}}
-                    <a class="text-red-500 mt-2" href="{{ route('barang.index') }}">
+                    <a class="text-red-500 mt-2" href="{{ url()->previous() }}">
                         Cancel
                     </a>
                 </div>

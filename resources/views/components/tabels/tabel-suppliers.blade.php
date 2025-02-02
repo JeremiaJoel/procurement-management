@@ -39,10 +39,12 @@
                         {{ $supplier->email }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Detail</a>
-                        <a href="#" class="text-green-500 hover:text-indigo-900">Edit</a>
-                        <a href="#" class="ml-2 text-red-600 hover:text-red-900 delete-btn"
-                            data-name="{{ $supplier->nama }}" data-id="{{ $supplier->supplier_id }}">Delete</a>
+                        <button class="text-indigo-600 hover:text-indigo-900 mr-3 btn-detail"
+                            data-id="{{ $supplier->supplier_id }}">Detail</button>
+                        <a href="{{ route('supplier.edit', $supplier->supplier_id) }}"
+                            class="text-green-500 hover:text-indigo-900">Edit</a>
+                        <button href="" class="ml-2 text-red-600 hover:text-red-900 delete-btn"
+                            data-name="{{ $supplier->nama }}" data-id="{{ $supplier->supplier_id }}">Delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -50,3 +52,6 @@
 
     </tbody>
 </table>
+<script>
+    const deleteSupplierUrl = "{{ route('supplier.destroy') }}"
+</script>

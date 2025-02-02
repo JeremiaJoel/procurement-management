@@ -7,11 +7,8 @@
     <title>Data Supplier</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/supplier.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <!-- resources/views/permissions/index.blade.php -->
@@ -45,30 +42,29 @@
                     <ul class="flex space-x-6">
 
                         <li>
-                            <a class="text-red-600 border-b-2 border-red-600 pb-2" href="#">
+                            <a class="text-gray-700 pb-2" href="{{ route('supplier.index') }}">
                                 List Supplier
                             </a>
                         </li>
                         <li>
-                            <a class="text-gray-700 pb-2 cursor-pointer" href="{{ route('supplier.create') }}">
+                            <p class="text-gray-700 pb-2 cursor-pointer" href="{{ route('supplier.create') }}">
                                 Add Supplier
-                            </a>
+                            </p>
                         </li>
                         <li>
-                            <a class="text-gray-700 pb-2 cursor-default" href="">
+                            <a class="text-red-600 border-b-2 border-red-600 pb-2cursor-default"
+                                href="{{ route('supplier.edit', $supplier->supplier_id) }}">
                                 Edit Supplier
                             </a>
                         </li>
                     </ul>
                 </nav>
                 <section>
-                    <x-tabels.tabel-suppliers :suppliers="$suppliers"></x-tabels.tabel-suppliers>
+                    <x-forms.form-edit-supplier :supplier="$supplier"></x-forms.form-supplier>
                 </section>
             </div>
         </div>
     </div>
-    @include('components.modals.modal-supplier')
-
 </body>
 
 </html>

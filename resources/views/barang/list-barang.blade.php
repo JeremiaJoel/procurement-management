@@ -106,3 +106,6 @@
 </body>
 
 </html>
+<script>
+    const deleteBarangUrl = "{{ route('barang.destroy') }}"
+</script>
