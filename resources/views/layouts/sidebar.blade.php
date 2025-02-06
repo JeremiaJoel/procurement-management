@@ -96,7 +96,7 @@
                         </button>
                         <ul id="transaction-menu" class="hidden pl-6">
                             <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('rfq')" icon="fas fa-cube">
+                                <x-responsive-sub-menu :href="route('pengadaan.index')" :active="request()->routeIs('pengadaan.*')" icon="fas fa-cube">
                                     {{ __('Permintaan Pengadaan') }}
                                 </x-responsive-sub-menu>
                             </li>

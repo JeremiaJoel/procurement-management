@@ -1,6 +1,6 @@
 <div class="col-span-1 sm:col-span-2 lg:col-span-3 bg-white p-6 rounded-lg shadow-lg">
     @if (session('success'))
-        <div id="success-message" data-message="{{ session('success') }}" data-redirect="{{ route('barang.index') }}">
+        <div id="success-message" data-message="{{ session('success') }}" data-redirect="{{ url()->previous() }}">
         </div>
     @endif
     <form id="add-barang" action="{{ route('barang.store') }}" method="POST" enctype="multipart/form-data">

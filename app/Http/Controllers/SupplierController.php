@@ -66,7 +66,7 @@ class SupplierController extends Controller
             'image' => $imagePath, // Simpan path gambar
         ]);
 
-        return redirect()->route('supplier.index')->with('success', 'Data supplier berhasil ditambahkan!');
+        return redirect()->route('supplier.create')->with('success', 'Data supplier berhasil ditambahkan!');
     }
 
     //fungsi untuk menampilkan supplier

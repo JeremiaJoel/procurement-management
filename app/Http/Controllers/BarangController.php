@@ -178,4 +178,17 @@ class BarangController extends Controller
             'message' => 'Barang berhasil dihapus'
         ]);
     }
+
+    public function filterBarang(Request $request)
+    {
+        $kategori = $request->kategori;
+
+        if ($kategori) {
+            $barangs = Barang::where('id_kategori', $kategori)->get();
+        } else {
+            $barangs = Barang::all();
+        }
+
+        return response()->json(['barangs' => $barangs]);
+    }
 }

@@ -1,14 +1,16 @@
 <?php
 
 use App\Models\Barang;
+use App\Livewire\Barang\Form;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SupplierController;
-use App\Livewire\Barang\Form;
+use App\Http\Controllers\pengadaanController;
+use App\Http\Controllers\PermissionController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -65,6 +67,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
     Route::post('/supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('/supplier', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+    //Routes menu permintaan pengadaan
+    Route::get('/pengadaan', [pengadaanController::class, 'index'])->name('pengadaan.index');
+
+
+    Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });
 
 require __DIR__ . '/auth.php';
