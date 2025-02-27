@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\PermintaanPengadaan;
+use App\Models\DetailPengadaan;
+
 
 class pengadaanController extends Controller
 {
@@ -13,10 +18,50 @@ class pengadaanController extends Controller
     {
         $barangs = Barang::all();
         $categories = Kategori::all();
+        $suppliers = Supplier::all();
 
         return view('permintaan-pengadaan.filling', [
             'barangs' => $barangs,
-            'categories' => $categories
+            'categories' => $categories,
+            'suppliers' => $suppliers
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'nama_pengadaan' => 'required|string|max:255',
+            'supplier_id' => 'required|exists:suppliers,supplier_id',
+            'items' => 'required|array',
+            'items.*.id' => 'required|exists:barang,barang_id',
+            'items.*.quantity' => 'required|integer|min:1',
+            'total_harga' => 'required|string|min:1',
+            'nama_supplier' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
+        ]);
+
+        // Simpan data permintaan pengadaan
+        $permintaan = PermintaanPengadaan::create([
+            'kode_pengadaan' => 'PGD-' . time(), // Contoh kode unik
+            'nama_pengadaan' => $request->nama_pengadaan,
+            'supplier_id' => $request->supplier_id,
+            'tanggal' => now(),
+            'nama_supplier' => $request->nama_supplier,
+            'keterangan' => $request->keterangan,
+            'total_harga' => $request->total_harga,
+            'status' => 'Sedang diproses',
+        ]);
+        // Simpan detail permintaan
+        foreach ($request->items as $item) {
+            DetailPengadaan::create([
+                'kode_pengadaan' => $permintaan->kode_pengadaan,
+                'permintaan_pengadaan_id' => $permintaan->id,
+                'barang_id' => $item['id'],
+                'kuantitas' => $item['quantity'],
+            ]);
+        }
+
+        return response()->json(['message' => 'Data berhasil disimpan'], 200);
     }
 }

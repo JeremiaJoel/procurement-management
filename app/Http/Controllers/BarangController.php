@@ -183,10 +183,10 @@ class BarangController extends Controller
     {
         $kategori = $request->kategori;
 
-        if ($kategori) {
+        if (!empty($kategori)) {
             $barangs = Barang::where('id_kategori', $kategori)->get();
         } else {
-            $barangs = Barang::all();
+            $barangs = []; // Ubah menjadi array kosong agar tidak menampilkan semua barang
         }
 
         return response()->json(['barangs' => $barangs]);

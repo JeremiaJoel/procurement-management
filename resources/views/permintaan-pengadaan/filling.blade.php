@@ -46,77 +46,90 @@
                 <div class="flex space-x-6">
                     <!-- Left Component: Table -->
                     <section class="w-1/2 bg-gray-50 p-6 rounded-lg shadow-lg">
-                        <h2 class="text-xl font-bold mb-4">List Barang</h2>
+                        <h2 class="font-bold mb-4">List Barang</h2>
                         <div class="mb-4">
-                            <label for="category" class="block text-sm font-medium text-gray-700">Select
-                                Category</label>
-                            <select id="category" name="kategori"
-                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-                                <option value="">Semua Kategori</option>
+                            <label class="block text-gray-700 mb-2">Pilih Kategori</label>
+                            <select id="category" class="w-full border border-gray-300 rounded px-2 py-2">
+                                <option value="">Pilih Kategori</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id_kategori }}">{{ $category->nama }}</option>
                                 @endforeach
                             </select>
+
                         </div>
-                        <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        No</th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Barang</th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="barang-table-body"
-                                class="bg-white divide-y divide-gray-200 font-sans font-semibold">
-                                @foreach ($barangs as $index => $barang)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $index + 1 }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ $barang->nama }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <!-- Tambahkan aksi di sini -->
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Add Barang</label>
+                            <select id="select-barang" class="w-full border border-gray-300 rounded px-2 py-2">
+                                <option value="">Daftar Barang</option>
+                            </select>
+                        </div>
+
                     </section>
 
                     <!-- Right Component: Additional Content -->
                     <section class="w-1/2 bg-gray-50 p-6 rounded-lg shadow-lg">
-                        <h2 class="text-xl font-bold mb-4">Additional Information</h2>
-                        <p class="mb-4">Here you can add any additional information or components that you want to
-                            display alongside the supplier table.</p>
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold">Statistics</h3>
-                            <ul class="list-disc pl-5">
-                                <li>Total Suppliers: 150</li>
-                                <li>Active Suppliers: 120</li>
-                                <li>Inactive Suppliers: 30</li>
-                            </ul>
+                            <label class="block text-gray-700 mb-2">Nama Pengadaan</label>
+                            <input id="nama-pengadaan" class="w-full border border-gray-300 rounded px-2 py-2">
+                        </div>
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg font-sans font-semibold">
+                            <table class="w-full text-sm text-left rtl:text-right text-black">
+                                <thead class="text-xs text-white uppercase bg-red-600">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Nama Barang
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Kuantitas
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">Harga</th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="grid grid-cols-2">
+                            <div class="mt-4 font-semibold font-sans text-lg">
+                                Total Harga: <span id="totalHarga">Rp. 0</span>
+                            </div>
+                            <div class="px-6 py-4 text-right">
+                                <label class="text-gray-700 mb-2 mx-2">Biaya PPN</label>
+                                <input id="biayaPpn" class="ppn-input bg-gray-100 px-2 py-1 rounded w-32 text-right"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="my-4">
+                            <label class="block text-gray-700 mb-2">Tanggal</label>
+                            <input id="tanggal" type="date" class="w-full border border-gray-300 rounded px-2 py-2"
+                                value="{{ now()->toDateString() }}" readonly>
+                        </div>
+
+                        <div class="my-4">
+                            <label class="block text-gray-700 mb-2">Nama Supplier</label>
+                            <select id="supplier" class="w-full border border-gray-300 rounded px-2 py-2">
+                                <option value="">Pilih Supplier</option>
+                                @foreach ($suppliers as $supplier)
+                                    <option value="{{ $supplier->supplier_id }}">{{ $supplier->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold">Recent Activities</h3>
-                            <ul class="list-disc pl-5">
-                                <li>Supplier A added on 2023-10-01</li>
-                                <li>Supplier B updated on 2023-10-02</li>
-                                <li>Supplier C removed on 2023-10-03</li>
-                            </ul>
+                            <label class="block text-gray-700 mb-2">Keterangan</label>
+                            <textarea id="keterangan" rows="4" class="w-full border border-gray-300 rounded px-2 py-2 resize-none"></textarea>
                         </div>
-                        <div class="mb-4">
-                            <h3 class="text-lg font-semibold">Notifications</h3>
-                            <ul class="list-disc pl-5">
-                                <li>New supplier request pending approval</li>
-                                <li>Supplier D contract expiring soon</li>
-                                <li>Monthly report available for download</li>
-                            </ul>
+                        <div class="relative h-16">
+                            <button type="button" id="submit-pengadaan"
+                                class="absolute top-0 right-0 btn btn-primary delete-btn m-3 font-semibold font-sans">
+                                Submit Pengadaan
+                            </button>
                         </div>
+
                     </section>
                 </div>
             </div>
@@ -126,41 +139,5 @@
 
 </html>
 <script>
-    $(document).ready(function() {
-        $("#category").change(function() {
-            let kategori_id = $(this).val();
-
-            $.ajax({
-                url: "{{ route('filter.barang') }}", // Sesuaikan dengan route yang kamu buat
-                type: "GET",
-                data: {
-                    kategori: kategori_id
-                },
-                success: function(response) {
-                    let tableBody = $("#barang-table-body");
-                    tableBody.empty(); // Kosongkan tabel sebelum menambahkan data baru
-
-                    if (response.barangs.length > 0) {
-                        $.each(response.barangs, function(index, barang) {
-                            let row = `<tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">${index + 1}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-black">${barang.nama}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <!-- Tambahkan aksi di sini -->
-                                        </td>
-                                    </tr>`;
-                            tableBody.append(row);
-                        });
-                    } else {
-                        tableBody.append(
-                            `<tr><td colspan="3" class="text-center px-6 py-4">Tidak ada barang</td></tr>`
-                            );
-                    }
-                },
-                error: function() {
-                    alert("Gagal mengambil data barang.");
-                }
-            });
-        });
-    });
+    const filterBarangUrl = "{{ route('filter.barang') }}"
 </script>

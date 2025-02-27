@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
 
     //Routes menu permintaan pengadaan
     Route::get('/pengadaan', [pengadaanController::class, 'index'])->name('pengadaan.index');
+    Route::post('/pengadaan', [pengadaanController::class, 'store']);
+
 
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
