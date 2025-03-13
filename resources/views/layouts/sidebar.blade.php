@@ -101,7 +101,7 @@
                                 </x-responsive-sub-menu>
                             </li>
                             <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('pembelian')" icon="fas fa-shopping-cart ">
+                                <x-responsive-sub-menu :href="route('pembelian.index')" :active="request()->routeIs('pembelian.*')" icon="fas fa-shopping-cart ">
                                     {{ __('Pembelian') }}
                                 </x-responsive-sub-menu>
                             </li>

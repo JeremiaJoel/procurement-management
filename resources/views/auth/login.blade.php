@@ -52,7 +52,7 @@
                             class="form-control pl-10 pr-4 py-3 rounded-lg w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') is-invalid @enderror"
                             placeholder="Email" type="email" />
                         @error('email')
-                            <div class="invalid-feedback">Email is invalid</div>
+                            <div class="invalid-feedback">Email or password is invalid</div>
                         @enderror
                     </label>
                 </div>
@@ -64,7 +64,7 @@
                             class="form-control pl-10 pr-4 py-3 rounded-lg w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') is-invalid @enderror"
                             placeholder="Password" type="password" />
                         @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">Password is invalid</div>
                         @enderror
                     </label>
                 </div>

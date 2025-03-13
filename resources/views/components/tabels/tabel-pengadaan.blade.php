@@ -5,13 +5,16 @@
         <tr>
 
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                No
+                Kode Pengadaan
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nama
+                Nama Supplier
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Email
+                Tanggal
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Action
@@ -19,8 +22,8 @@
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200 font-sans font-semibold">
-        @if ($suppliers->isNotEmpty())
-            @foreach ($suppliers as $index => $supplier)
+        @if ($pengadaans->isNotEmpty())
+            @foreach ($pengadaans as $index => $pengadaan)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
@@ -52,6 +55,6 @@
     </tbody>
 </table>
 {{ $suppliers->links() }}
-<script>
+{{-- <script>
     const deleteSupplierUrl = "{{ route('supplier.destroy') }}"
-</script>
+</script> --}}

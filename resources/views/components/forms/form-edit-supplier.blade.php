@@ -51,9 +51,9 @@
                     </div>
                     <div>
                         <label class="block text-gray-700">
-                            <x-input-label for="contact" :value="__('Nomor Telepon') . ': ' . $supplier->contact" />
+                            <x-input-label for="contact" :value="__('Nomor Telepon')" />
                             <x-text-input id="contact" class="block mt-1 w-full" type="text" name="contact"
-                                :value="old('contact')" required autofocus autocomplete="contact" />
+                                :value="old('contact', $supplier->contact)" required autofocus autocomplete="contact" />
                             <x-input-error :messages="$errors->get('contact')" class="mt-2" />
                         </label>
                     </div>
@@ -61,7 +61,7 @@
                         <label for="address" class="block text-gray-700">
                             Alamat
                         </label>
-                        <textarea name="address" id="address" class="w-full p-2 border rounded-lg" rows="4">{{ old('address') }}</textarea>
+                        <textarea name="address" id="address" class="w-full p-2 border rounded-lg" rows="4">{{ old('address', $supplier->address) }}</textarea>
                         <x-input-error :messages="$errors->get('address', $supplier->address)" class="mt-2" />
                     </div>
 

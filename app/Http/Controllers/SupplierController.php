@@ -10,7 +10,7 @@ class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::latest()->paginate(10);
+        $suppliers = Supplier::paginate(5);
         return view('data-supplier.list', [
             'suppliers' => $suppliers
         ]);
@@ -97,7 +97,7 @@ class SupplierController extends Controller
         $request->validate([
             'nama_supplier' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', Rule::unique('suppliers', 'email')->ignore($id, 'supplier_id')],
-            'contact' => ['required', 'string', 'numeric'],
+            'contact' => ['required', 'string', 'numeric', 'unique'],
             'address' => ['required', 'string'],
             'image' => ['required', 'image', 'file', 'max:10000']
         ]);

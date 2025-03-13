@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\pengadaanController;
@@ -71,6 +72,10 @@ Route::middleware('auth')->group(function () {
     //Routes menu permintaan pengadaan
     Route::get('/pengadaan', [pengadaanController::class, 'index'])->name('pengadaan.index');
     Route::post('/pengadaan', [pengadaanController::class, 'store']);
+
+    //Routes menu pembelian
+    Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian.index');
+
 
 
 
