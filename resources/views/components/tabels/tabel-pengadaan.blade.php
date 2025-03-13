@@ -1,9 +1,11 @@
-@props(['suppliers'])
+@props(['pengadaans'])
 
 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead class="bg-gray-50">
         <tr>
-
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                No
+            </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Kode Pengadaan
             </th>
@@ -36,25 +38,29 @@
                     </td>
 
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $supplier->nama }}
+                        {{ $pengadaan->kode_pengadaan }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $supplier->email }}
+                        {{ $pengadaan->nama_supplier }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                        {{ $pengadaan->tanggal }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+                        {{ $pengadaan->status }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button class="text-indigo-600 hover:text-indigo-900 mr-3 btn-detail"
-                            data-id="{{ $supplier->supplier_id }}">Detail</button>
-                        <a href="{{ route('supplier.edit', $supplier->supplier_id) }}"
-                            class="text-green-500 hover:text-indigo-900">Edit</a>
-                        <button href="" class="ml-2 text-red-600 hover:text-red-900 delete-btn"
-                            data-name="{{ $supplier->nama }}" data-id="{{ $supplier->supplier_id }}">Delete</button>
+                        <a href="   " class="text-green-500 hover:text-indigo-900">Edit</a>
+                        <button href=""
+                            class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn">Download
+                            PDF</button>
                     </td>
                 </tr>
             @endforeach
         @endif
     </tbody>
 </table>
-{{ $suppliers->links() }}
+{{ $pengadaans->links() }}
 {{-- <script>
     const deleteSupplierUrl = "{{ route('supplier.destroy') }}"
 </script> --}}

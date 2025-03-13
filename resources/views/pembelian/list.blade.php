@@ -52,7 +52,7 @@
                     </ul>
                 </nav>
                 <section>
-                    {{-- <x-tabels.tabel-suppliers :suppliers="$suppliers"></x-tabels.tabel-suppliers> --}}
+                    <x-tabels.tabel-pengadaan :pengadaans="$pengadaans"></x-tabels.tabel-pengadaan>
                 </section>
             </div>
         </div>
