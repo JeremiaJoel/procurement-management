@@ -259,9 +259,13 @@ $("#submit-pengadaan").click(function () {
 
     // Loop setiap baris tabel untuk mengambil data barang
     $("tbody tr").each(function () {
+        let hargaText = $(this).find(".harga-input").val();
+        let hargaNumeric = hargaText ? hargaText.replace(/[^0-9]/g, "") : "0"; // Ambil angka saja
+        let hargaFormatted = formatRupiah(hargaNumeric, "Rp. "); // Ubah ke format Rupiah
         let row = {
             id: $(this).data("id"), // Ambil ID barang
             quantity: $(this).find(".quantity").text().trim(), // Ambil kuantitas
+            harga: hargaFormatted,
         };
 
         if (row.id && row.quantity) {
@@ -277,10 +281,12 @@ $("#submit-pengadaan").click(function () {
     let supplierID = $("#supplier").val();
     let supplierName = $("#supplier option:selected").text(); // Ambil nama supplier
     let namaPengadaan = $("#nama-pengadaan").val().trim();
+    let pajak = $("#biayaPpn").val();
     let keterangan = $("#keterangan").val();
     let tanggal = $("#tanggal").val();
     let totalHarga = updateTotalHarga();
-    console.log(typeof totalHarga);
+    console.log(pajak);
+    console.log(typeof pajak);
     console.log("Data yang dikirim:", {
         totalHarga,
         supplierID,
@@ -288,6 +294,7 @@ $("#submit-pengadaan").click(function () {
         tableData,
         namaPengadaan,
         keterangan,
+        pajak,
     });
 
     // Kirim data ke backend
@@ -302,6 +309,7 @@ $("#submit-pengadaan").click(function () {
             keterangan: keterangan,
             total_harga: totalHarga,
             items: tableData,
+            pajak: pajak,
         },
         success: function (response) {
             alert("Data berhasil disimpan!");

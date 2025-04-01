@@ -23,7 +23,8 @@ class PermintaanPengadaan extends Model
         'tanggal',
         'keterangan',
         'total_harga',
-        'status'
+        'status',
+        'pajak'
     ];
 
     // Relasi ke tabel DetailPengadaan (One to Many)

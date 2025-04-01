@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\pengadaanController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PurchaseOrderController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -72,11 +73,16 @@ Route::middleware('auth')->group(function () {
     //Routes menu permintaan pengadaan
     Route::get('/pengadaan', [pengadaanController::class, 'index'])->name('pengadaan.index');
     Route::post('/pengadaan', [pengadaanController::class, 'store']);
+    Route::get('/pengadaan/status/{id}', [PengadaanController::class, 'cekStatusPengadaan']);
 
     //Routes menu pembelian
     Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian.index');
+    Route::get('/pembelian/ubah/status/{id}', [PembelianController::class, 'ubahStatus'])->name('pembelian.ubahStatus');
 
-
+    //Routes tampilan surat Purchase order
+    Route::get('/purchase-order/{id}', [PurchaseOrderController::class, 'index'])->name('purchase-order.index');
+    Route::get('/purchase-order/{id}/browser', [PurchaseOrderController::class, 'pdfinbrowser'])->name('purchase-order.browser');
+    Route::get('/purchase-order/{id}/download', [PurchaseOrderController::class, 'downloadpdf'])->name('purchase-order.download');
 
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');

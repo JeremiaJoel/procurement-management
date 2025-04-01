@@ -50,10 +50,22 @@
                         {{ $pengadaan->status }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <a href="   " class="text-green-500 hover:text-indigo-900">Edit</a>
+                        <a href="#" data-id="{{ $pengadaan->kode_pengadaan }}"
+                            class="text-green-500 hover:text-indigo-900 ubah-status-btn">
+                            Ubah Status
+                        </a>
+
+
+
+                        <a href="{{ route('purchase-order.index', ['id' => $pengadaan->kode_pengadaan]) }}"
+                            target="_blank" class="ml-2 text-red-600 hover:text-red-900">
+                            Download PDF
+                        </a>
+
+
                         <button href=""
-                            class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn">Download
-                            PDF</button>
+                            class="ml-2 hover:underline-offset-1 text-blue-600 hover:text-blue-900 download-inv-btn"data-id="{{ $pengadaan->kode_pengadaan }}">Download
+                            Invoice</button>
                     </td>
                 </tr>
             @endforeach
@@ -61,6 +73,6 @@
     </tbody>
 </table>
 {{ $pengadaans->links() }}
-{{-- <script>
-    const deleteSupplierUrl = "{{ route('supplier.destroy') }}"
-</script> --}}
+<script>
+    const ubahStatusUrl = "{{ route('pembelian.ubahStatus', ':id') }}";
+</script>

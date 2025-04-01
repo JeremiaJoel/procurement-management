@@ -39,6 +39,7 @@ class pengadaanController extends Controller
             'total_harga' => 'required|string|min:1',
             'nama_supplier' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
+
         ]);
 
         // Simpan data permintaan pengadaan
@@ -51,6 +52,7 @@ class pengadaanController extends Controller
             'keterangan' => $request->keterangan,
             'total_harga' => $request->total_harga,
             'status' => 'Sedang diproses',
+            'pajak' => $request->pajak,
         ]);
         // Simpan detail permintaan
         foreach ($request->items as $item) {
@@ -59,9 +61,23 @@ class pengadaanController extends Controller
                 'permintaan_pengadaan_id' => $permintaan->id,
                 'barang_id' => $item['id'],
                 'kuantitas' => $item['quantity'],
+                'harga' => $item['harga']
             ]);
         }
 
         return response()->json(['message' => 'Data berhasil disimpan'], 200);
+    }
+
+    //Fungsi untuk mengecek status permintaan pengadaan
+    public function cekStatusPengadaan($id)
+    {
+        // Gunakan where() karena primary key bukan id
+        $pengadaan = PermintaanPengadaan::where('kode_pengadaan', $id)->first();
+
+        if (!$pengadaan) {
+            return response()->json(["status" => "not found"], 404);
+        }
+
+        return response()->json(["status" => $pengadaan->status]);
     }
 }

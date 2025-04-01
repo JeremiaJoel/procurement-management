@@ -14,7 +14,8 @@ class DetailPengadaan extends Model
     protected $fillable = [
         'kode_pengadaan',
         'barang_id',
-        'kuantitas'
+        'kuantitas',
+        'harga'
     ];
 
     // Relasi ke PermintaanPengadaan (Many to One)

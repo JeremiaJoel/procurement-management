@@ -26,7 +26,8 @@
                         <div class="flex items-center">
                             <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ $index + 1 }}
+                                    {{-- Nomor dinamis berdasarkan pagination --}}
+                                    {{ $suppliers->firstItem() + $index }}
                                 </div>
                             </div>
                         </div>
@@ -49,6 +50,7 @@
                 </tr>
             @endforeach
         @endif
+
     </tbody>
 </table>
 {{ $suppliers->links() }}

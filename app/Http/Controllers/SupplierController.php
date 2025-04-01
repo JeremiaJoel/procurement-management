@@ -97,7 +97,7 @@ class SupplierController extends Controller
         $request->validate([
             'nama_supplier' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', Rule::unique('suppliers', 'email')->ignore($id, 'supplier_id')],
-            'contact' => ['required', 'string', 'numeric', 'unique'],
+            'contact' => ['required', 'string', 'numeric', Rule::unique('suppliers', 'contact')->ignore($id, 'supplier_id')],
             'address' => ['required', 'string'],
             'image' => ['required', 'image', 'file', 'max:10000']
         ]);
