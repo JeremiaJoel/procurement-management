@@ -1,30 +1,57 @@
-$(document).on("click", ".download-inv-btn", function () {
-    let pengadaanID = $(this).data("id"); // Ambil ID dari tombol
+//SWEET ALERT MENGHAPUS BARANG
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButtons = document.querySelectorAll(".delete-btn");
 
-    $.ajax({
-        url: `/pengadaan/status/${pengadaanID}`, // Endpoint untuk cek status
-        type: "GET",
-        success: function (response) {
-            if (response.status === "disetujui") {
-                // Jika status disetujui, lanjut download PDF
-                window.location.href = `/download-inv/${pengadaanID}`;
-            } else {
-                // Jika belum disetujui, tampilkan SweetAlert
-                Swal.fire({
-                    icon: "error",
-                    title: "Gagal Download!",
-                    text: "Permintaan pengadaan masih diproses.",
-                    confirmButtonText: "OK",
-                });
-            }
-        },
-        error: function () {
+    deleteButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            const pengadaanId = this.getAttribute("data-id");
             Swal.fire({
-                icon: "error",
-                title: "Terjadi Kesalahan",
-                text: "Gagal memeriksa status pengadaan.",
+                title: `Apakah Anda yakin?`,
+                text: `Data pembelian ini akan dihapus secara permanen!`,
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(deletePembelianUrl, {
+                        method: "DELETE",
+                        headers: {
+                            "X-CSRF-TOKEN": document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content"),
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            kode_pengadaan: pengadaanId,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.status) {
+                                Swal.fire("Terhapus!", data.message, "success");
+
+                                // Tambahkan durasi 2 detik sebelum refresh halaman
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000); // 2000ms = 2 detik
+                            } else {
+                                Swal.fire("Gagal!", data.message, "error");
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                            Swal.fire(
+                                "Error!",
+                                "Terjadi kesalahan. Silakan coba lagi.",
+                                "error"
+                            );
+                        });
+                }
             });
-        },
+        });
     });
 });
 

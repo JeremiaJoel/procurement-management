@@ -23,24 +23,7 @@
                     </div>
                 </div>
                 <div class="mt-4 space-y-4">
-                    {{-- <div class="flex items-center justify-between p-2 border rounded-lg">
-                        <div class="flex items-center">
-                            <img alt="Navy Blue Shoe 01" class="w-10 h-10 rounded mr-2"
-                                src="https://placehold.co/40x40" />
-                            <div>
-                                <p class="text-gray-700">
-                                    Navy Blue Shoe 01.png
-                                </p>
-                                <p class="text-gray-500 text-sm">
-                                    482 KB
-                                </p>
-                            </div>
-                        </div>
-                        <button class="text-gray-500 hover:text-red-500">
-                            <i class="fas fa-trash-alt">
-                            </i>
-                        </button>
-                    </div> --}}
+
                     <a class="text-red-500 mt-2"
                         href="{{ route('barang.by-category', $barang->kategori->id_kategori) }}">
                         Cancel

@@ -69,15 +69,37 @@ class pengadaanController extends Controller
     }
 
     //Fungsi untuk mengecek status permintaan pengadaan
-    public function cekStatusPengadaan($id)
-    {
-        // Gunakan where() karena primary key bukan id
-        $pengadaan = PermintaanPengadaan::where('kode_pengadaan', $id)->first();
+    // public function cekStatusPengadaan($id)
+    // {
+    //     // Gunakan where() karena primary key bukan id
+    //     $pengadaan = PermintaanPengadaan::where('kode_pengadaan', $id)->first();
 
-        if (!$pengadaan) {
-            return response()->json(["status" => "not found"], 404);
+    //     if (!$pengadaan) {
+    //         return response()->json(["status" => "not found"], 404);
+    //     }
+
+    //     return response()->json(["status" => $pengadaan->status]);
+    // }
+
+    //Fungsi untuk menghapus data pengadaan
+    public function destroy(Request $request)
+    {
+        $id = $request->kode_pengadaan;
+
+        $pengadaan = PermintaanPengadaan::find($id);
+
+        if ($pengadaan == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Pengadaan tidak ditemukan'
+            ]);
         }
 
-        return response()->json(["status" => $pengadaan->status]);
+        $pengadaan->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Pengadaan berhasil dihapus'
+        ]);
     }
 }

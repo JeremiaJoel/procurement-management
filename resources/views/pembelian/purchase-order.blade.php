@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Invoice Template</title>
+    <title>Purchase Order Preview</title>
 
     <style>
         .invoice-box {
@@ -56,12 +56,46 @@
         .bold {
             font-weight: bold;
         }
+
+        .purchase-order-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            /* setara dengan mb-8 Tailwind */
+        }
+
+        .purchase-order-header h1 {
+            font-size: 1.875rem;
+            /* setara dengan text-3xl Tailwind */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .download-wrapper {
+            text-align: center;
+            margin-top: 1rem;
+            /* opsional, kalau mau kasih jarak dari atas */
+        }
+
+        .download-pdf {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
 <body>
     <div class="invoice-box">
+        <div class="purchase-order-header">
+            <h1>Purchase Order</h1>
+        </div>
+
         <div class="header">
+
             @php
                 $path = public_path('img/logo.png');
                 $type = pathinfo($path, PATHINFO_EXTENSION);
@@ -113,7 +147,11 @@
             </tr>
         </table>
         @if (strpos(url()->current(), 'download') == false)
-            <a href="{{ route('purchase-order.download', $pengadaan->kode_pengadaan) }}">Download PDF</a>
+            <div class="download-wrapper">
+                <a class="download-pdf" href="{{ route('purchase-order.download', $pengadaan->kode_pengadaan) }}">
+                    Download PDF
+                </a>
+            </div>
         @endif
 
         <div class="footer">

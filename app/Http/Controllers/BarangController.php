@@ -64,7 +64,7 @@ class BarangController extends Controller
             'nama_barang' => ['required', 'string', 'max:255'],
             'kategori' => ['required', 'string', 'exists:kategori,nama'],
             'spesifikasi' => ['required', 'string'],
-            'image' => ['required', 'image', 'file', 'max:10000'] // Validasi gambar
+            'image' => ['required', 'image', 'file', 'max:100000'] // Validasi gambar
         ]);
 
         // Cari kategori berdasarkan nama
@@ -136,7 +136,7 @@ class BarangController extends Controller
             'nama_barang' => ['required', 'string', 'max:255'],
             'kategori' => ['required', 'string', 'exists:kategori,nama'],
             'spesifikasi' => ['required', 'string'],
-            'image' => ['nullable', 'image', 'file', 'max:10000'] // Gambar boleh dikosongkan
+            'image' => ['nullable', 'image', 'file', 'max:100000'] // Gambar boleh dikosongkan
         ]);
         $kategori = Kategori::where('nama', $request->kategori)->first();
 
@@ -190,5 +190,100 @@ class BarangController extends Controller
         }
 
         return response()->json(['barangs' => $barangs]);
+    }
+
+    //Halaman add Kategori
+    public function createKategori()
+    {
+        return view('barang.create-kategori');
+    }
+
+    //Fungsi untuk menambah kategori baru
+    public function storeKategori(Request $request)
+    {
+        // Validasi Input
+        $request->validate([
+            'nama_kategori' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'file', 'max:100000'] // Validasi gambar
+        ]);
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('img'); // Simpan di storage/public/img
+        }
+
+        // Cari ID terakhir di database
+        $lastKategori = Kategori::orderBy('id_kategori', 'desc')->first();
+
+        if ($lastKategori) {
+            // Ambil angka terakhir, tambahkan 1
+            $kategoriId = (int)$lastKategori->id_kategori + 1;
+        } else {
+            // Jika belum ada data, mulai dari 1
+            $kategoriId = 1;
+        }
+        // Simpan ke database
+        Kategori::create([
+            'id_kategori' => $kategoriId,
+            'nama' => $request->nama_kategori,
+            'image' => $imagePath // Simpan path gambar
+        ]);
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+    }
+
+    //Fungsi untuk menampilkan halaman edit kategori
+    public function editKategori($id)
+    {
+        $category = Kategori::findOrFail($id);
+
+        return view('barang.edit-kategori', [
+            'category' => $category
+        ]);
+    }
+    //Fungsi untuk update kategori ke database
+    public function updateKategori($id, Request $request)
+    {
+        // Validasi Input
+        $request->validate([
+            'nama_kategori' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'file', 'max:100000'] // Validasi gambar
+        ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('img'); // Simpan di storage/public/img
+        }
+
+        $kategori = Kategori::findOrFail($id);
+
+
+        $kategori->update([
+            'nama' => $request->nama_kategori,
+            'image' => $imagePath, // Simpan path gambar baru atau gunakan yang lama
+        ]);
+
+        return redirect()->route('kategori.edit', $kategori->id_kategori)->with('success', 'Kategori berhasil diperbarui!');
+    }
+
+    //Fungsi untuk menghapus kategori
+
+    public function destroyKategori(Request $request)
+    {
+        $id = $request->id_kategori;
+
+        $kategori = Kategori::find($id);
+
+        if ($kategori == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Kategori tidak ditemukan'
+            ]);
+        }
+
+        $kategori->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Kategori berhasil dihapus'
+        ]);
     }
 }

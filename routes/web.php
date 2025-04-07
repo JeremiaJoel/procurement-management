@@ -60,6 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
     Route::post('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
     Route::delete('/barang', [BarangController::class, 'destroy'])->name('barang.destroy');
+    Route::get('/kategori/create', [BarangController::class, 'createKategori'])->name('kategori.index');
+    Route::post('/kategori', [BarangController::class, 'storeKategori'])->name('kategori.store');
+    Route::get('/kategori/{id}/edit', [BarangController::class, 'editKategori'])->name('kategori.edit');
+    Route::post('/kategori/{id}', [BarangController::class, 'updateKategori'])->name('kategori.update');
+    Route::delete('/kategori', [BarangController::class, 'destroyKategori'])->name('kategori.destroy');
+
+
+
 
     //Routes Menu Data Supplier
     Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
@@ -78,6 +86,8 @@ Route::middleware('auth')->group(function () {
     //Routes menu pembelian
     Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian.index');
     Route::get('/pembelian/ubah/status/{id}', [PembelianController::class, 'ubahStatus'])->name('pembelian.ubahStatus');
+    Route::delete('/pembelian', [pengadaanController::class, 'destroy'])->name('pembelian.destroy');
+
 
     //Routes tampilan surat Purchase order
     Route::get('/purchase-order/{id}', [PurchaseOrderController::class, 'index'])->name('purchase-order.index');

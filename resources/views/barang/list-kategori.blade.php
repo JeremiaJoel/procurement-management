@@ -7,8 +7,10 @@
     <title>Barang</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/kategori.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <!-- resources/views/permissions/index.blade.php -->
@@ -55,7 +57,11 @@
                                 Edit Barang
                             </a>
                         </li>
-
+                        <li>
+                            <a class="text-gray-500 pb-2 cursor-pointer" href="{{ route('kategori.index') }}">
+                                Tambah Kategori
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <div class="container mx-auto p-4">
@@ -69,10 +75,21 @@
                                 </div>
                                 <div class="flex justify-center items-center inset-0">
                                     <a href="{{ route('barang.by-category', $category->id_kategori) }}">
+
                                         <img alt="{{ $category->nama }}"
-                                            class="h-full w-full rounded-lg opacity-85 bg-cover" height="50"
-                                            src="{{ asset('img/' . $category->image) }}" />
+                                            class="h-full w-full rounded-lg opacity-85 bg-cover"
+                                            src="{{ asset('storage/' . $category->image) }}" />
                                     </a>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-success px-3 items-center m-2"
+                                        onclick="window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger px-2 items-center m-2 delete-btn"
+                                        data-id="{{ $category->id_kategori }}">
+                                        Delete
+                                    </button>
                                 </div>
                             </div>
                         @endforeach
@@ -88,3 +105,6 @@
 </body>
 
 </html>
+<script>
+    const deleteKategoriUrl = "{{ route('kategori.destroy') }}"
+</script>

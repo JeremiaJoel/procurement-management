@@ -1,11 +1,10 @@
-//SWEET ALERT UNTUK BERHASIL MENAMBAHKAN BARANG
+//SWEET ALERT UNTUK BERHASIL MENAMBAHKAN KATEGORI
 document.addEventListener("DOMContentLoaded", function () {
-    const barangForm = document.getElementById("add-barang");
+    const kategoriForm = document.getElementById("add-kategori");
 
-    if (barangForm) {
-        barangForm.addEventListener("submit", function (event) {
+    if (kategoriForm) {
+        kategoriForm.addEventListener("submit", function (event) {
             event.preventDefault(); // Mencegah form disubmit langsung
-
             Swal.fire({
                 title: "Apakah Anda yakin?",
                 text: "Pastikan semua data sudah benar.",
@@ -37,12 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//SWEET ALERT UNTUK BERHASIL MEMPERBARUI BARANG
+//SWEET ALERT UNTUK BERHASIL MEMPERBARUI KATEGORI
 document.addEventListener("DOMContentLoaded", function () {
-    const barangForm = document.getElementById("edit-barang");
+    const kategoriForm = document.getElementById("edit-kategori");
 
-    if (barangForm) {
-        barangForm.addEventListener("submit", function (event) {
+    if (kategoriForm) {
+        kategoriForm.addEventListener("submit", function (event) {
             event.preventDefault(); // Mencegah form disubmit langsung
 
             Swal.fire({
@@ -76,17 +75,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-//SWEET ALERT MENGHAPUS BARANG
+//SWEET ALERT MENGHAPUS KATEGORI
 document.addEventListener("DOMContentLoaded", function () {
     const deleteButtons = document.querySelectorAll(".delete-btn");
 
     deleteButtons.forEach((button) => {
         button.addEventListener("click", function () {
-            const barangId = this.getAttribute("data-id");
+            const kategoriId = this.getAttribute("data-id");
 
             Swal.fire({
                 title: `Apakah Anda yakin?`,
-                text: `Barang ini akan dihapus secara permanen!`,
+                text: `Kategori ini akan dihapus secara permanen!`,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -95,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 cancelButtonText: "Batal",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(deleteBarangUrl, {
+                    fetch(deleteKategoriUrl, {
                         method: "DELETE",
                         headers: {
                             "X-CSRF-TOKEN": document
@@ -104,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            barang_id: barangId,
+                            id_kategori: kategoriId,
                         }),
                     })
                         .then((response) => response.json())
@@ -133,27 +132,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-//Modal detail barang
-//Untuk Modal detail spesifikasi barang
-$(document).ready(function () {
-    $(".btn-detail").on("click", function () {
-        var barangId = $(this).data("id");
-
-        $.ajax({
-            url: "/barang/detail/" + barangId,
-            type: "GET",
-            success: function (response) {
-                $("#modal-gambar").attr("src", "/storage/" + response.image);
-                $("#modal-nama").text(response.nama);
-                $("#modal-deskripsi").text(response.spesifikasi);
-                $("#exampleModal").modal("show");
-            },
-            error: function (xhr) {
-                console.log(xhr.responseText);
-                alert("Terjadi kesalahan, coba lagi nanti.");
-            },
-        });
-    });
-});
-
