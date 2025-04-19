@@ -1,4 +1,4 @@
-@props(['pengadaans'])
+@props(['invoices', 'pengadaans'])
 
 <table class="min-w-full divide-y divide-gray-200 overflow-x-auto">
     <thead class="bg-gray-50">
@@ -7,25 +7,23 @@
                 No
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Kode Pengadaan
+                Kode Invoice
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nama Supplier
+                Kode Pengadaan
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Tanggal
             </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-            </th>
+
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Action
             </th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200 font-sans font-semibold">
-        @if ($pengadaans->isNotEmpty())
-            @foreach ($pengadaans as $index => $pengadaan)
+        @if ($invoices->isNotEmpty())
+            @foreach ($invoices as $index => $invoice)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
@@ -38,42 +36,33 @@
                     </td>
 
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $pengadaan->kode_pengadaan }}
+                        {{ $invoice->kode_invoice }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $pengadaan->nama_supplier }}
+                        {{ $invoice->kode_pengadaan }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $pengadaan->tanggal }}
+                        {{ $invoice->pengadaan->tanggal }}
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
-                        {{ $pengadaan->status }}
-                    </td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button class="ubah-status-btn text-green-600 hover:text-green-900 py-1 rounded"
-                            data-id="{{ $pengadaan->kode_pengadaan }}" data-status="{{ $pengadaan->status }}">
-                            Ubah Status
-                        </button>
-
-
-
-                        <a href="{{ route('purchase-order.index', ['id' => $pengadaan->kode_pengadaan]) }}"
-                            target="_blank" class="ml-2 text-blue-600 hover:text-red-900">
-                            Download PDF
+                        <a href="{{ route('invoiceLayout.index', ['id' => $invoice->kode_pengadaan]) }}" target="_blank"
+                            class="ml-2 text-blue-600 hover:text-red-900">
+                            Lihat Invoice
                         </a>
 
+                        <button class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-invoice-btn"
+                            data-id="{{ $invoice->kode_pengadaan }}">
+                            Hapus Invoice
+                        </button>
 
-                        <button href=""
-                            class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn"
-                            data-id="{{ $pengadaan->kode_pengadaan }}">Delete</button>
                     </td>
                 </tr>
             @endforeach
         @endif
     </tbody>
 </table>
-{{ $pengadaans->links() }}
+{{ $invoices->links() }}
 <script>
-    const deletePembelianUrl = "{{ route('pembelian.destroy') }}"
-    const ubahStatusUrl = "{{ route('pembelian.ubahStatus', ':id') }}";
+    // const deletePembelianUrl = "{{ route('pembelian.destroy') }}"
 </script>

@@ -29,16 +29,17 @@ class PurchaseOrderController extends Controller
     // Fungsi untuk menampilkan PDF di browser
     public function pdfinbrowser($id)
     {
-        // Ambil data yang sama seperti fungsi index
         $pengadaan = PermintaanPengadaan::where('kode_pengadaan', $id)->firstOrFail();
         $barangs = DetailPengadaan::where('kode_pengadaan', $pengadaan->kode_pengadaan)
             ->with('barang')
             ->get();
 
-        // Buat PDF dengan data
-        $pdf = Pdf::loadView('pembelian.purchase-order', compact('pengadaan', 'barangs'));
+        $pdf = Pdf::loadView('pembelian.purchase-order', compact('pengadaan', 'barangs'))
+            ->setPaper('a4', 'portrait'); // Ukuran A4 potrait
+
         return $pdf->stream('browserpurchaseorder.pdf');
     }
+
 
     // Fungsi untuk download PDF
     public function downloadpdf($id)
@@ -48,7 +49,9 @@ class PurchaseOrderController extends Controller
             ->with('barang')
             ->get();
 
-        $pdf = Pdf::loadView('pembelian.purchase-order', compact('pengadaan', 'barangs'));
+        $pdf = Pdf::loadView('pembelian.purchase-order', compact('pengadaan', 'barangs'))
+            ->setPaper('a4', 'portrait'); // Ukuran A4 potrait
+
         return $pdf->download('browserpurchaseorder.pdf');
     }
 }

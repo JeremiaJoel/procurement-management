@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceLayout;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
@@ -88,6 +90,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/pembelian/ubah/status/{id}', [PembelianController::class, 'ubahStatus'])->name('pembelian.ubahStatus');
     Route::delete('/pembelian', [pengadaanController::class, 'destroy'])->name('pembelian.destroy');
 
+    //Routes menu invoice
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+
+    //Routes tampilan invoice
+    Route::get('/invoice/{id}', [InvoiceLayout::class, 'index'])->name('invoiceLayout.index');
+    Route::get('/invoice/{id}/download', [InvoiceLayout::class, 'downloadpdf'])->name('invoice.download');
 
     //Routes tampilan surat Purchase order
     Route::get('/purchase-order/{id}', [PurchaseOrderController::class, 'index'])->name('purchase-order.index');

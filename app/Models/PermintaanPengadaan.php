@@ -38,4 +38,8 @@ class PermintaanPengadaan extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
     }
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'kode_pengadaan', 'kode_pengadaan');
+    }
 }

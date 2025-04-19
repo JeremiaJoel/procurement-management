@@ -99,17 +99,24 @@ $(document).on("click", ".ubah-status-btn", function (e) {
     e.preventDefault();
 
     let id = $(this).data("id");
+    let statusSekarang = $(this).data("status"); // Ambil status saat ini dari data-* attribute
     let url = ubahStatusUrl.replace(":id", id);
     let _this = $(this);
 
+    // Tentukan pesan konfirmasi berdasarkan status sekarang
+    let pesan =
+        statusSekarang === "Approved"
+            ? "Status akan dikembalikan menjadi 'Sedang diproses' dan invoice akan dihapus. Lanjutkan?"
+            : "Status akan diubah menjadi 'Approved' dan invoice akan dibuat otomatis. Lanjutkan?";
+
     Swal.fire({
         title: "Konfirmasi Ubah Status",
-        text: "Apakah Anda yakin ingin mengubah status pengadaan?",
+        text: pesan,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, Ubah Status!",
+        confirmButtonText: "Ya, Lanjutkan!",
         cancelButtonText: "Batal",
     }).then((result) => {
         if (result.isConfirmed) {
@@ -124,11 +131,9 @@ $(document).on("click", ".ubah-status-btn", function (e) {
                         timer: 2000,
                         showConfirmButton: false,
                     }).then(() => {
-                        // Auto reload halaman setelah SweetAlert ditutup
-                        location.reload();
+                        location.reload(); // Reload setelah sukses
                     });
                 },
-
                 error: function (xhr) {
                     Swal.fire({
                         title: "Gagal!",

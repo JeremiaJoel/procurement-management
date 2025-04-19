@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>PO Preview</title>
+    <title>Invoice Preview</title>
 
     <style>
         .invoice-box {
@@ -123,7 +123,7 @@
 <body>
     <div class="invoice-box">
         <div class="purchase-order-header">
-            <h1>PURCHASE ORDER</h1>
+            <h1>INVOICE</h1>
         </div>
         @php
             $path = public_path('img/logo.png');
@@ -139,13 +139,13 @@
                 <td style="width: 50%; text-align: right; vertical-align: top; border:none;">
                     <table style="width: 100%; border: none;">
                         <tr>
-                            <td style="font-weight: bold; padding: 4px; border:none;">Kode Pengadaan:</td>
-                            <td style="padding: 4px; border:none;">{{ $pengadaan->kode_pengadaan }}</td>
+                            <td style="font-weight: bold; padding: 4px; border:none;">Kode Invoice:</td>
+                            <td style="padding: 4px; border:none;">{{ $invoice->kode_invoice }}</td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold; padding: 4px; border:none;">Tanggal Pengadaan:</td>
+                            <td style="font-weight: bold; padding: 4px; border:none;">Tanggal Lunas:</td>
                             <td style="padding: 4px; border:none;">
-                                {{ \Carbon\Carbon::parse($pengadaan->tanggal)->translatedFormat('j F Y') }}
+                                {{ \Carbon\Carbon::parse($invoice->tanggal)->translatedFormat('j F Y') }}
                             </td>
                         </tr>
                     </table>
@@ -203,20 +203,27 @@
                 <!-- Add Total Row -->
                 <tr style="font-weight: bold; border: none;">
                     <td style="text-align: right; padding: 5px; border: none;">Total Harga</td>
-                    <td style="text-align: right; padding: 5px; border: none;">{{ $pengadaan->total_harga }}</td>
+                    <td style="text-align: right; padding: 5px; border: none;">{{ $invoice->total }}</td>
                 </tr>
-
+                <tr style="font-weight: bold; border: none;">
+                    <td style="text-align: right; padding: 5px; border: none;">Lunas</td>
+                    <td style="text-align: right; padding: 5px; border: none;">{{ $invoice->total }}</td>
+                </tr>
             </tbody>
         </table>
 
 
         @if (strpos(url()->current(), 'download') === false)
             <div class="download-wrapper">
-                <a class="download-pdf" href="{{ route('purchase-order.download', $pengadaan->kode_pengadaan) }}">
+                <a class="download-pdf" href="{{ route('invoice.download', $pengadaan->kode_pengadaan) }}">
                     Download PDF
                 </a>
             </div>
         @endif
+
+        <div class="footer">
+            <p>Terima kasih atas kepercayaan Anda.</p>
+        </div>
     </div>
 </body>
 

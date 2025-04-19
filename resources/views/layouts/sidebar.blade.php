@@ -119,7 +119,7 @@
                         </button>
                         <ul id="report-menu" class="hidden pl-6">
                             <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('invoice')" icon="fas fa-file-invoice">
+                                <x-responsive-sub-menu :href="route('invoice.index')" :active="request()->routeIs('invoice.*')" icon="fas fa-file-invoice">
                                     {{ __('Invoice') }}
                                 </x-responsive-sub-menu>
                             </li>
