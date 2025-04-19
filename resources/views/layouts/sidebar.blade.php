@@ -124,17 +124,18 @@
                                 </x-responsive-sub-menu>
                             </li>
                             <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('monthly-report')"
-                                    icon="fas fa-file-contract ">
-                                    {{ __('Laporan Bulanan') }}
-                                </x-responsive-sub-menu>
-                            </li>
-                            <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('daily-report')"
+                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('laporan-harian.*')"
                                     icon="fas fa-clipboard-list">
                                     {{ __('Laporan Harian') }}
                                 </x-responsive-sub-menu>
                             </li>
+                            <li class="mb-2">
+                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('')"
+                                    icon="fas fa-file-contract ">
+                                    {{ __('Laporan Bulanan') }}
+                                </x-responsive-sub-menu>
+                            </li>
+
                         </ul>
                     </li>
 

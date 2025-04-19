@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceLayout;
+use App\Http\Controllers\LaporanHarian;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
@@ -102,6 +103,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchase-order/{id}/browser', [PurchaseOrderController::class, 'pdfinbrowser'])->name('purchase-order.browser');
     Route::get('/purchase-order/{id}/download', [PurchaseOrderController::class, 'downloadpdf'])->name('purchase-order.download');
 
+    //Routes untuk menu laporan harian
+    route::get('/laporan-harian', [LaporanHarian::class, 'index'])->name('laporan-harian.index');
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });
