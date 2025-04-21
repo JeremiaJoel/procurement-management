@@ -42,68 +42,65 @@
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
                 <x-message></x-message>
                 <nav class="mb-6">
-                    <ul class="flex space-x-6 text-xl">
+                    <h1 class="inline-block text-xl text-red-600 border-b-2 border-red-600">
                         Rekap Laporan Harian
-                    </ul>
+                    </h1>
                 </nav>
-                <x-datepicker></x-datepicker>
-
-
+                <form action="{{ route('laporan-harian.index') }}">
+                    @include('components.datepicker')
+                    <button type="submit" class="px-4 btn btn-success mb-[15px] py-2 text-white rounded font-semibold">
+                        Terapkan
+                    </button>
+                </form>
                 <div class="bg-gray-100 rounded p-4">
                     <h2 class="text-2xl mb-4">List Laporan</h2>
+                    <p class="mt-4 text-gray-700">
+                        Menampilkan data untuk tanggal:
+                        <strong>{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</strong>
 
+                    </p>
                     <!-- Classes Table -->
                     <div class="relative overflow-auto">
                         <div class="overflow-x-auto rounded-lg">
+                            {{-- @if (request('tanggal'))
+                                <p class="mt-4 text-gray-700">Menampilkan data untuk tanggal:
+                                    <strong>{{ request('tanggal') }}</strong>
+                                </p>
+                            @endif --}}
                             <table class="min-w-full bg-white border mb-20">
                                 <thead>
                                     <tr class="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
                                         <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">ID</span>
+                                            <span class="block py-2 px-3 border-r border-gray-300">No</span>
                                         </th>
                                         <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Class Name</span>
+                                            <span class="block py-2 px-3 border-r border-gray-300">Kode Pengadaan</span>
                                         </th>
                                         <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Level</span>
+                                            <span class="block py-2 px-3 border-r border-gray-300">Nama Pengadaan</span>
                                         </th>
-                                        <th class="p-4 text-xs md:text-sm">Actions</th>
+                                        <th class="p-0">
+                                            <span class="block py-2 px-3 border-r border-gray-300">Total Harga</span>
+                                        </th>
+                                        <th class="p-0">
+                                            <span class="block py-2 px-3 border-r border-gray-300">Status</span>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="border-b text-xs md:text-sm text-center text-gray-800">
-                                        <td class="p-2 md:p-4">01</td>
-                                        <td class="p-2 md:p-4">Class 1</td>
-                                        <td class="p-2 md:p-4">Beginner</td>
-                                        <td class="relative p-2 md:p-4 flex justify-center space-x-2">
-                                            <button
-                                                class="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Edit</button>
-                                            <button
-                                                class="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b text-xs md:text-sm text-center text-gray-800">
-                                        <td class="p-2 md:p-4">02</td>
-                                        <td class="p-2 md:p-4">Class 2</td>
-                                        <td class="p-2 md:p-4">Intermediate</td>
-                                        <td class="relative p-2 md:p-4 flex justify-center space-x-2">
-                                            <button
-                                                class="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Edit</button>
-                                            <button
-                                                class="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b text-xs md:text-sm text-center text-gray-800">
-                                        <td class="p-2 md:p-4">03</td>
-                                        <td class="p-2 md:p-4">Class 3</td>
-                                        <td class="p-2 md:p-4">Advanced</td>
-                                        <td class="relative p-2 md:p-4 flex justify-center space-x-2">
-                                            <button
-                                                class="bg-blue-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Edit</button>
-                                            <button
-                                                class="bg-red-500 text-white px-3 py-1 rounded-md text-xs md:text-sm">Delete</button>
-                                        </td>
-                                    </tr>
+                                    @if ($pengadaans->isNotEmpty())
+                                        @foreach ($pengadaans as $index => $pengadaan)
+                                        @endforeach
+                                        <tr class="border-b text-xs md:text-sm text-center text-gray-800">
+                                            <td class="p-2 md:p-4">iterasi</td>
+                                            <td class="p-2 md:p-4">{{ $pengadaan->kode_pengadaan }}</td>
+                                            <td class="p-2 md:p-4">{{ $pengadaan->nama_pengadaan }}</td>
+                                            <td class="p-2 md:p-4">{{ $pengadaan->total_harga }}</td>
+                                            <td class="p-2 md:p-4">{{ $pengadaan->status }}</td>
+
+                                        </tr>
+                                    @endif
+
                                 </tbody>
                             </table>
                         </div>

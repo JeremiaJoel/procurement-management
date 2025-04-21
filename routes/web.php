@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
     //Routes untuk menu laporan harian
     route::get('/laporan-harian', [LaporanHarian::class, 'index'])->name('laporan-harian.index');
 
+
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });
 

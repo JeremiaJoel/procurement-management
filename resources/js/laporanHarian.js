@@ -11,11 +11,6 @@ const toggleDatepicker = document.getElementById("toggleDatepicker");
 let currentDate = new Date();
 let selectedDate = null;
 
-// Tambahkan helper zeroPad
-function zeroPad(num) {
-    return num < 10 ? `0${num}` : num;
-}
-
 function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -34,27 +29,22 @@ function renderCalendar() {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-        daysContainer.innerHTML += `<div class="flex items-center justify-center cursor-pointer w-[41px] h-[41px] text-black dark:text-white rounded-full hover:bg-red-500 hover:text-white">${i}</div>`;
+        daysContainer.innerHTML += `<div class="flex items-center justify-center cursor-pointer w-[46px] h-[46px] text-dark-3 dark:text-dark-6 rounded-full hover:bg-primary hover:text-white">${i}</div>`;
     }
 
     document.querySelectorAll("#days-container div").forEach((day) => {
         day.addEventListener("click", function () {
-            const dayValue = parseInt(this.textContent);
-            const formattedMonth = zeroPad(month + 1);
-            const formattedDay = zeroPad(dayValue);
-            selectedDate = `${year}-${formattedMonth}-${formattedDay}`;
-
-            // Hapus highlight sebelumnya
-            document.querySelectorAll("#days-container div").forEach((d) => {
-                d.classList.remove(
-                    "bg-red-600",
-                    "text-white",
-                    "dark:text-white"
+            selectedDate = `${month + 1}-${this.textContent}-${year}`;
+            document
+                .querySelectorAll("#days-container div")
+                .forEach((d) =>
+                    d.classList.remove(
+                        "bg-primary",
+                        "text-white",
+                        "dark:text-white"
+                    )
                 );
-            });
-
-            // Tambahkan highlight ke tanggal terpilih
-            this.classList.add("bg-red-600", "text-white", "dark:text-white");
+            this.classList.add("bg-primary", "text-white", "dark:text-white");
         });
     });
 }
@@ -86,7 +76,7 @@ cancelButton.addEventListener("click", function () {
 
 applyButton.addEventListener("click", function () {
     if (selectedDate) {
-        datepicker.value = selectedDate; // Sudah dalam format YYYY-MM-DD
+        datepicker.value = selectedDate;
     }
     datepickerContainer.classList.add("hidden");
 });

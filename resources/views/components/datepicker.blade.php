@@ -1,9 +1,9 @@
 <!-- ====== Datepicker Section Start -->
-<section class="text-center">
-    <div class="flex justify-center items-center">
-        <div class="w-full px-4 md:w-1/2 lg:w-1/3">
-            <div class="mb-12">
-                <label for="" class="mb-[10px] block text-base font-medium text-black dark:text-white">
+<section>
+    <div class="flex items-center w-full">
+        <div class="w-full">
+            <div class="mb-[15px]">
+                <label for="" class="mb-[15px] block text-base font-medium text-black dark:text-white">
                     Pilih Tanggal:
                 </label>
 
@@ -20,8 +20,8 @@
                             </svg>
                         </span>
 
-                        <input id="datepicker" type="text"
-                            class="w-full bg-transparent pl-[50px] pr-8 py-2.5 border rounded-lg text-black-  outline-none transition focus:border-red-500 dark:focus:border-red-300"
+                        <input id="datepicker" name="tanggal" type="text"
+                            class="w-full bg-transparent pl-[50px] pr-8 py-2.5 border rounded-lg text-black outline-none transition focus:border-red-500 dark:focus:border-red-300"
                             placeholder="Select a date" readonly>
 
                         <span class="absolute right-0 pr-4 text-dark-5 cursor-pointer" id="toggleDatepicker">
@@ -36,10 +36,11 @@
                     </div>
                     <!-- Datepicker Container -->
                     <div id="datepicker-container"
-                        class="absolute mt-2 bg-white border border-stroke rounded-lg shadow-datepicker pt-3 w-[250px] hidden text-sm">
+                        class="absolute left-1/2 top-full mt-2 -translate-x-1/2 bg-white border border-stroke rounded-lg shadow-datepicker pt-3 w-[450px] text-sm z-10 hidden">
                         <!-- Header: Navigation -->
                         <div class="flex items-center justify-between px-2">
-                            <button id="prevMonth" class="px-1 py-1 text-gray-700 hover:bg-gray-200 rounded">
+                            <button type="button" id="prevMonth"
+                                class="px-1 py-1 text-gray-700 hover:bg-gray-200 rounded">
                                 <svg class="fill-current" width="16" height="16" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -47,7 +48,8 @@
                                 </svg>
                             </button>
                             <div id="currentMonth" class="text-base font-medium text-gray-700"></div>
-                            <button id="nextMonth" class="px-1 py-1 text-gray-700 hover:bg-gray-200 rounded">
+                            <button type="button" id="nextMonth"
+                                class="px-1 py-1 text-gray-700 hover:bg-gray-200 rounded">
                                 <svg class="fill-current" width="16" height="16" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -72,9 +74,9 @@
 
                         <!-- Action Buttons -->
                         <div class="flex justify-end mt-3 space-x-2 p-3 border-t border-stroke">
-                            <button id="cancelButton"
+                            <button type="button" id="cancelButton"
                                 class="px-3 py-1.5 text-sm text-blue-600 rounded border border-blue-600 hover:bg-blue-100">Cancel</button>
-                            <button id="applyButton"
+                            <button type="button" id="applyButton"
                                 class="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">Apply</button>
                         </div>
                     </div>
