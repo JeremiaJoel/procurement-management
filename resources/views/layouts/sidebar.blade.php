@@ -124,7 +124,7 @@
                                 </x-responsive-sub-menu>
                             </li>
                             <li class="mb-2">
-                                <x-responsive-sub-menu :href="route('dashboard')" :active="request()->routeIs('laporan-harian.*')"
+                                <x-responsive-sub-menu :href="route('laporan-harian.index')" :active="request()->routeIs('laporan-harian.*')"
                                     icon="fas fa-clipboard-list">
                                     {{ __('Laporan Harian') }}
                                 </x-responsive-sub-menu>

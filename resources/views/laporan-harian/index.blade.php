@@ -19,12 +19,22 @@
 
 <body class="bg-gray-100 font-sans font-semibold">
     <div class="flex h-screen">
+        <!-- Loader -->
+        <div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+            <div class="relative">
+                <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                <div
+                    class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+                </div>
+            </div>
+        </div>
+
         <!-- Sidebar -->
         @include('layouts.sidebar')
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-6 relative">
             <!-- Background Design -->
-            <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);">
+            <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
             </div>
             <header class="flex justify-between items-center mb-6 relative z-10">
                 <h1 class="text-2xl font-bold text-white">
@@ -53,57 +63,66 @@
                     </button>
                 </form>
                 <div class="bg-gray-100 rounded p-4">
-                    <h2 class="text-2xl mb-4">List Laporan</h2>
-                    <p class="mt-4 text-gray-700">
-                        Menampilkan data untuk tanggal:
-                        <strong>{{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</strong>
-
-                    </p>
+                    <h2 class="text-xl mb-4">Rekap laporan pengadaan tanggal :
+                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</h2>
                     <!-- Classes Table -->
-                    <div class="relative overflow-auto">
-                        <div class="overflow-x-auto rounded-lg">
-                            {{-- @if (request('tanggal'))
-                                <p class="mt-4 text-gray-700">Menampilkan data untuk tanggal:
-                                    <strong>{{ request('tanggal') }}</strong>
-                                </p>
-                            @endif --}}
-                            <table class="min-w-full bg-white border mb-20">
-                                <thead>
-                                    <tr class="bg-[#2B4DC994] text-center text-xs md:text-sm font-thin text-white">
-                                        <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">No</span>
-                                        </th>
-                                        <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Kode Pengadaan</span>
-                                        </th>
-                                        <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Nama Pengadaan</span>
-                                        </th>
-                                        <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Total Harga</span>
-                                        </th>
-                                        <th class="p-0">
-                                            <span class="block py-2 px-3 border-r border-gray-300">Status</span>
-                                        </th>
+                    <div class="shadow-lg rounded-lg overflow-hidden mx-2 md:mx-10">
+                        <table class="w-full table-fixed">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">No
+                                    </th>
+                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Nama
+                                        Pengadaan
+                                    </th>
+                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Total
+                                        Harga
+                                    </th>
+                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                @forelse ($pengadaans as $index => $pengadaan)
+                                    <tr>
+                                        <td class="py-4 px-6 border-b border-gray-200">
+                                            {{ $pengadaans->firstItem() + $index }}
+                                        </td>
+                                        <td class="py-4 px-6 border-b border-gray-200 truncate">
+                                            {{ $pengadaan->nama_pengadaan }}
+                                        </td>
+                                        <td class="py-4 px-6 border-b border-gray-200">
+                                            {{ $pengadaan->total_harga }}
+                                        </td>
+                                        <td class="py-4 px-6 border-b border-gray-200">
+                                            <span
+                                                class="px-2 py-1 rounded text-white font-medium 
+                                                {{ $pengadaan->status == 'Approved' ? 'bg-green-500' : 'bg-red-500' }}">
+                                                {{ $pengadaan->status }}
+                                            </span>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @if ($pengadaans->isNotEmpty())
-                                        @foreach ($pengadaans as $index => $pengadaan)
-                                        @endforeach
-                                        <tr class="border-b text-xs md:text-sm text-center text-gray-800">
-                                            <td class="p-2 md:p-4">iterasi</td>
-                                            <td class="p-2 md:p-4">{{ $pengadaan->kode_pengadaan }}</td>
-                                            <td class="p-2 md:p-4">{{ $pengadaan->nama_pengadaan }}</td>
-                                            <td class="p-2 md:p-4">{{ $pengadaan->total_harga }}</td>
-                                            <td class="p-2 md:p-4">{{ $pengadaan->status }}</td>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-gray-500 py-6">
+                                            Laporan tidak ditemukan pada hari tersebut.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        @if ($pengadaans->isNotEmpty())
+                            <div class="m-3 px-4 py-2 flex justify-center">
+                                <a href="{{ route('laporan-harian.browser', ['tanggal' => $tanggal]) }}" type="button"
+                                    class="btn btn-primary text-center text-white rounded font-semibold">
+                                    Download
+                                </a>
+                            </div>
+                        @endif
 
-                                        </tr>
-                                    @endif
 
-                                </tbody>
-                            </table>
-                        </div>
+
+                        {{ $pengadaans->links() }}
                     </div>
                 </div>
             </div>
@@ -112,3 +131,13 @@
 </body>
 
 </html>
+<style>
+    #loader {
+        transition: opacity 0.5s ease;
+    }
+
+    #loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+</style>

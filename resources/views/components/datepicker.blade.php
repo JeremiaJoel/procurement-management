@@ -21,8 +21,10 @@
                         </span>
 
                         <input id="datepicker" name="tanggal" type="text"
-                            class="w-full bg-transparent pl-[50px] pr-8 py-2.5 border rounded-lg text-black outline-none transition focus:border-red-500 dark:focus:border-red-300"
+                            class="w-full bg-transparent pl-[50px] pr-8 py-2.5 border rounded-lg text-black outline-none transition 
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:focus:border-blue-300"
                             placeholder="Select a date" readonly>
+
 
                         <span class="absolute right-0 pr-4 text-dark-5 cursor-pointer" id="toggleDatepicker">
                             <!-- Arrow Down Icon -->

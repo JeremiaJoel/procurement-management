@@ -86,7 +86,8 @@ cancelButton.addEventListener("click", function () {
 
 applyButton.addEventListener("click", function () {
     if (selectedDate) {
-        datepicker.value = selectedDate; // Sudah dalam format YYYY-MM-DD
+        datepicker.value = selectedDate;
+        localStorage.setItem("selectedDate", selectedDate); // Sudah dalam format YYYY-MM-DD
     }
     datepickerContainer.classList.add("hidden");
 });
@@ -99,4 +100,22 @@ document.addEventListener("click", function (event) {
     ) {
         datepickerContainer.classList.add("hidden");
     }
+});
+// Saat halaman dimuat, ambil tanggal dari localStorage
+document.addEventListener("DOMContentLoaded", function () {
+    const savedDate = localStorage.getItem("selectedDate");
+    if (savedDate) {
+        datepicker.value = savedDate;
+        selectedDate = savedDate;
+    }
+});
+
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.classList.add("fade-out");
+
+    // Setelah animasi selesai (0.5 detik), benar-benar disembunyikan
+    setTimeout(() => {
+        loader.style.display = "none";
+    }, 500);
 });
