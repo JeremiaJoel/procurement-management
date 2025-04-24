@@ -170,7 +170,7 @@
             <tbody>
                 @foreach ($pengadaans as $index => $pengadaan)
                     <tr>
-                        <td>{{ $pengadaan + $index }}</td>
+                        <td>{{ 1 + $index }}</td>
                         <td>{{ $pengadaan->nama_pengadaan }}</td>
                         <td>{{ $pengadaan->total_harga }}</td>
                         <td>{{ $pengadaan->status }}</td>
@@ -191,17 +191,14 @@
                 </tr>
             </tbody>
         </table>
-
-
-
-
         @if (strpos(url()->current(), 'download') === false)
             <div class="download-wrapper">
-                <a class="download-pdf" href="{{ route('invoice.download', $pengadaan->kode_pengadaan) }}">
+                <a class="download-pdf" href="{{ route('laporan-harian.download', ['tanggal' => $tanggal]) }}">
                     Download PDF
                 </a>
             </div>
         @endif
+
     </div>
 </body>
 

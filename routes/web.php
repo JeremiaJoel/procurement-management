@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\InvoiceLayout;
+use App\Http\Controllers\laporanBulanan;
 use App\Http\Controllers\LaporanHarian;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProfileController;
@@ -106,7 +107,10 @@ Route::middleware('auth')->group(function () {
     //Routes untuk menu laporan harian
     route::get('/laporan-harian', [LaporanHarian::class, 'index'])->name('laporan-harian.index');
     route::get('/laporan-harian/{tanggal}', [LaporanHarian::class, 'layoutHarian'])->name('laporan-harian.browser');
-    route::get('/laporan-harian/{tanggal}/download', [LaporanHarian::class, 'layoutHarian'])->name('laporan-harian.download');
+    route::get('/laporan-harian/{tanggal}/download', [LaporanHarian::class, 'downloadpdf'])->name('laporan-harian.download');
+
+    //Routes untuk menu laporan bulanan
+    route::get('/laporan-bulanan', [laporanBulanan::class, 'index'])->name('laporan-bulanan.index');
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });

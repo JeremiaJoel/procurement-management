@@ -73,12 +73,14 @@ class LaporanHarian extends Controller
 
 
         $pengadaans = PermintaanPengadaan::whereDate('tanggal', $tanggal)->get();
-        $totalHarga = $pengadaans->getCollection()->sum(function ($item) {
+        $totalHarga = $pengadaans->sum(function ($item) {
             return (int) str_replace(['Rp', '.', ' '], '', $item->total_harga);
         });
 
+        $jumlahPengadaan = $pengadaans->count();
 
-        $pdf = Pdf::loadView('laporan-harian.laporan-harian', compact('pengadaans', 'totalHarga', 'tanggal'))
+
+        $pdf = Pdf::loadView('laporan-harian.laporan-harian', compact('pengadaans', 'totalHarga', 'tanggal', 'jumlahPengadaan'))
             ->setPaper('a4', 'portrait');
 
         return $pdf->download('laporan-harian.pdf');
