@@ -23,7 +23,7 @@
                         <input id="monthpicker" name="bulan" type="text"
                             class="w-full bg-transparent pl-[50px] pr-8 py-2.5 border rounded-lg text-black outline-none transition 
            focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:focus:border-blue-300"
-                            placeholder="Select a date" readonly>
+                            placeholder="Pilih Bulan" readonly>
 
 
                         <span class="absolute right-0 pr-4 text-dark-5 cursor-pointer" id="toggleMonthpicker">

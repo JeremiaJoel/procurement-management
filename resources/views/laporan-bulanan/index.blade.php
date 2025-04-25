@@ -57,7 +57,7 @@
                     </h1>
                 </nav>
                 <form action="{{ route('laporan-bulanan.index') }}">
-                    @include('components.datepicker')
+                    @include('components.monthpicker')
                     <button type="submit" class="px-4 btn btn-success mb-[15px] py-2 text-white rounded font-semibold">
                         Terapkan
                     </button>

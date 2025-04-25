@@ -10,7 +10,15 @@ const toggleDatepicker = document.getElementById("toggleDatepicker");
 
 let currentDate = new Date();
 let selectedDate = null;
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.classList.add("fade-out");
 
+    // Setelah animasi selesai (0.5 detik), benar-benar disembunyikan
+    setTimeout(() => {
+        loader.style.display = "none";
+    }, 500);
+});
 // Tambahkan helper zeroPad
 function zeroPad(num) {
     return num < 10 ? `0${num}` : num;
