@@ -36,11 +36,11 @@
                             </svg>
                         </span>
                     </div>
-                    <!-- Datepicker Container -->
+                    <!-- Monthpicker Container -->
 
                     <body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
                         <div id="monthpicker-container"
-                            class="absolute left-1/2 top-full mt-2 -translate-x-1/2 bg-white border border-stroke rounded-lg shadow-datepicker pt-3 w-[320px] text-sm z-10">
+                            class="absolute left-1/2 top-full mt-2 -translate-x-1/2 bg-white border border-stroke rounded-lg shadow-datepicker pt-3 w-[320px] text-sm z-10 hidden">
                             <!-- Header: Navigation -->
                             <div class="flex items-center justify-between px-4">
                                 <button type="button" id="prevYear"

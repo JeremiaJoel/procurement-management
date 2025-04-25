@@ -48,7 +48,8 @@
                 btn.classList.add("bg-blue-600", "text-white", "font-semibold");
             }
 
-            btn.addEventListener("click", () => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation(); // ← ini mencegah klik bocor ke document
                 selectedMonthIndex = index;
                 applyButton.disabled = false;
                 renderMonths();
@@ -58,12 +59,14 @@
         });
     }
 
-    monthpicker.addEventListener("click", function () {
+    monthpicker.addEventListener("click", function (e) {
+        e.stopPropagation(); // ← tambahkan ini
         monthpickerContainer.classList.toggle("hidden");
         renderMonths();
     });
 
-    toggleMonthpicker.addEventListener("click", function () {
+    toggleMonthpicker.addEventListener("click", function (e) {
+        e.stopPropagation(); // ← tambahkan ini juga
         monthpickerContainer.classList.toggle("hidden");
     });
 
@@ -80,7 +83,7 @@
     cancelButton.addEventListener("click", () => {
         selectedMonthIndex = null;
         applyButton.disabled = true;
-        renderMonths();
+        monthpickerContainer.classList.add("hidden");
     });
 
     applyButton.addEventListener("click", () => {
@@ -91,9 +94,18 @@
         }
     });
 
+    //Fungsi untuk menutup monthpicker saat klik di luar
+    // Fungsi untuk menutup monthpicker saat klik di luar
+    document.addEventListener("click", function (event) {
+        if (
+            !monthpicker.contains(event.target) &&
+            !monthpickerContainer.contains(event.target)
+        ) {
+            monthpickerContainer.classList.add("hidden");
+        }
+    });
+
     // Initial render
     renderYear();
     renderMonths();
-
-    
 })();
