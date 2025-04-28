@@ -61,68 +61,67 @@
                     <button type="submit" class="px-4 btn btn-success mb-[15px] py-2 text-white rounded font-semibold">
                         Terapkan
                     </button>
-                    {{-- </form>
-                <div class="bg-gray-100 rounded p-4">
-                    <h2 class="text-xl mb-4">Rekap laporan pengadaan tanggal :
-                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</h2>
-                    <!-- Classes Table -->
-                    <div class="shadow-lg rounded-lg overflow-hidden mx-2 md:mx-10">
-                        <table class="w-full table-fixed">
-                            <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">No
-                                    </th>
-                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Nama
-                                        Pengadaan
-                                    </th>
-                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Total
-                                        Harga
-                                    </th>
-                                    <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Status
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white">
-                                @forelse ($pengadaans as $index => $pengadaan)
-                                    <tr>
-                                        <td class="py-4 px-6 border-b border-gray-200">
-                                            {{ $pengadaans->firstItem() + $index }}
-                                        </td>
-                                        <td class="py-4 px-6 border-b border-gray-200 truncate">
-                                            {{ $pengadaan->nama_pengadaan }}
-                                        </td>
-                                        <td class="py-4 px-6 border-b border-gray-200">
-                                            {{ $pengadaan->total_harga }}
-                                        </td>
-                                        <td class="py-4 px-6 border-b border-gray-200">
-                                            <span
-                                                class="px-2 py-1 rounded text-white font-medium 
-                                                {{ $pengadaan->status == 'Approved' ? 'bg-green-500' : 'bg-red-500' }}">
-                                                {{ $pengadaan->status }}
-                                            </span>
-                                        </td>
+                    <div class="bg-gray-100 rounded p-4">
+                        <h2 class="text-xl mb-4">Rekap laporan pengadaan bulan:
+                            {{ \Carbon\Carbon::createFromFormat('Y-m', $bulanTahun)->translatedFormat('F Y') }}
+                        </h2>
+
+                        <!-- Classes Table -->
+                        <div class="shadow-lg rounded-lg overflow-hidden mx-2 md:mx-10">
+                            <table class="w-full table-fixed">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">No</th>
+                                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Nama
+                                            Pengadaan</th>
+                                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Total
+                                            Harga</th>
+                                        <th class="w-1/4 py-4 px-6 text-left text-gray-600 font-bold uppercase">Status
+                                        </th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="4" class="text-center text-gray-500 py-6">
-                                            Laporan tidak ditemukan pada hari tersebut.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                        @if ($pengadaans->isNotEmpty())
-                            <div class="m-3 px-4 py-2 flex justify-center">
-                                <a href="{{ route('laporan-harian.browser', ['tanggal' => $tanggal]) }}" type="button"
-                                    class="btn btn-primary text-center text-white rounded font-semibold">
-                                    Download
-                                </a>
-                            </div>
-                        @endif
+                                </thead>
+                                <tbody class="bg-white">
+                                    @forelse ($pengadaans as $index => $pengadaan)
+                                        <tr>
+                                            <td class="py-4 px-6 border-b border-gray-200">
+                                                {{ $pengadaans->firstItem() + $index }}
+                                            </td>
+                                            <td class="py-4 px-6 border-b border-gray-200 truncate">
+                                                {{ $pengadaan->nama_pengadaan }}
+                                            </td>
+                                            <td class="py-4 px-6 border-b border-gray-200">
+                                                {{ $pengadaan->total_harga }}
+                                            </td>
+                                            <td class="py-4 px-6 border-b border-gray-200">
+                                                <span
+                                                    class="px-2 py-1 rounded text-white font-medium 
+                                                    {{ $pengadaan->status == 'Approved' ? 'bg-green-500' : 'bg-red-500' }}">
+                                                    {{ $pengadaan->status }}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center text-gray-500 py-6">
+                                                Laporan tidak ditemukan pada bulan tersebut.
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
 
+                            @if ($pengadaans->isNotEmpty())
+                                <div class="m-3 px-4 py-2 flex justify-center">
+                                    <a href="{{ route('laporan-bulanan.browser', ['bulan' => $bulanTahun]) }}"
+                                        class="btn btn-primary text-center text-white rounded font-semibold">
+                                        Download
+                                    </a>
+                                </div>
+                            @endif
 
-
-                        {{ $pengadaans->links() }} --}}
+                            {{ $pengadaans->links() }}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

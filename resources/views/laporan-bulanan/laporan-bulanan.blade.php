@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Daily Report Preview</title>
+    <title>Monthly Report Preview</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <script>
         window.addEventListener("load", function() {
             const loader = document.getElementById("loader");
@@ -21,6 +20,7 @@
             }, 100); // Tambahkan delay 100ms sebelum mulai fade-out
         });
     </script>
+
 
     <style>
         #loader {
@@ -157,7 +157,7 @@
 <body>
     <div class="invoice-box">
         <div class="purchase-order-header">
-            <h1>Laporan Harian</h1>
+            <h1>Laporan Bulanan</h1>
         </div>
         @php
             $path = public_path('img/logo.png');
@@ -173,9 +173,9 @@
                 <td style="width: 50%; text-align: right; vertical-align: top; border:none;">
                     <table style="width: 100%; border: none;">
                         <tr>
-                            <td style="font-weight: bold; padding: 4px; border:none;">Laporan Tanggal:</td>
+                            <td style="font-weight: bold; padding: 4px; border:none;">Laporan Bulan:</td>
                             <td style="padding: 4px; border:none;">
-                                {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('j F Y') }}
+                                {{ \Carbon\Carbon::createFromFormat('Y-m', $bulan)->startOfMonth()->translatedFormat('F Y') }}
                             </td>
 
                         </tr>
@@ -225,13 +225,13 @@
                 </tr>
             </tbody>
         </table>
-        @if (strpos(url()->current(), 'download') === false)
+        {{-- @if (strpos(url()->current(), 'download') === false)
             <div class="download-wrapper">
                 <a class="download-pdf" href="{{ route('laporan-harian.download', ['tanggal' => $tanggal]) }}">
                     Download PDF
                 </a>
             </div>
-        @endif
+        @endif --}}
 
     </div>
 </body>

@@ -88,9 +88,15 @@
 
     applyButton.addEventListener("click", () => {
         if (selectedMonthIndex !== null) {
-            alert(
-                `Selected Month: ${months[selectedMonthIndex].full} ${selectedYear}`
-            );
+            const selectedMonthNumber = String(selectedMonthIndex + 1).padStart(
+                2,
+                "0"
+            ); // 0 jadi 01, dst
+            const selectedValue = `${selectedYear}-${selectedMonthNumber}`;
+            monthpicker.value = selectedValue;
+            monthpickerContainer.classList.add("hidden");
+
+            monthpickerContainer.classList.add("hidden");
         }
     });
 

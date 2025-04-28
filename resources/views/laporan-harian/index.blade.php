@@ -63,8 +63,10 @@
                     </button>
                 </form>
                 <div class="bg-gray-100 rounded p-4">
-                    <h2 class="text-xl mb-4">Rekap laporan pengadaan tanggal :
-                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}</h2>
+                    <h2 class="text-xl mb-4">Rekap laporan pengadaan bulan:
+                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('F Y') }}
+                    </h2>
+
                     <!-- Classes Table -->
                     <div class="shadow-lg rounded-lg overflow-hidden mx-2 md:mx-10">
                         <table class="w-full table-fixed">
@@ -105,7 +107,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="4" class="text-center text-gray-500 py-6">
-                                            Laporan tidak ditemukan pada hari tersebut.
+                                            Laporan tidak ditemukan pada bulan tersebut.
                                         </td>
                                     </tr>
                                 @endforelse

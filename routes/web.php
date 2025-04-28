@@ -111,6 +111,7 @@ Route::middleware('auth')->group(function () {
 
     //Routes untuk menu laporan bulanan
     route::get('/laporan-bulanan', [laporanBulanan::class, 'index'])->name('laporan-bulanan.index');
+    route::get('/laporan-bulanan/{bulan}', [laporanBulanan::class, 'layoutBulanan'])->name('laporan-bulanan.browser');
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });
