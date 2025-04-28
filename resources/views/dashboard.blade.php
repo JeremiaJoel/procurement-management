@@ -40,14 +40,14 @@
                 <h1 class="text-2xl font-bold text-white">
                     Dashboard
                 </h1>
-                <div class="flex items-center">
+                {{-- <div class="flex items-center">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="text-white hover:bg-red-500 rounded-lg p-1">
                             Logout
                         </button>
                     </form>
-                </div>
+                </div> --}}
 
             </header>
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">

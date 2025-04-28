@@ -1,3 +1,13 @@
+window.addEventListener("load", function () {
+    const loader = document.getElementById("loader");
+    loader.classList.add("fade-out");
+
+    // Setelah animasi selesai (0.5 detik), benar-benar disembunyikan
+    setTimeout(() => {
+        loader.style.display = "none";
+    }, 500);
+});
+
 //SWEET ALERT UNTUK BERHASIL MENAMBAHKAN KATEGORI
 document.addEventListener("DOMContentLoaded", function () {
     const kategoriForm = document.getElementById("add-kategori");

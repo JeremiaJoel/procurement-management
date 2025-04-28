@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Barang</title>
+    <title>Kategori</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/kategori.js'])
@@ -15,8 +15,42 @@
 
 <!-- resources/views/permissions/index.blade.php -->
 
+<script>
+    window.addEventListener("load", function() {
+        const loader = document.getElementById("loader");
+
+        // Biar kelihatan dulu sebentar (contoh 100ms)
+        setTimeout(() => {
+            loader.classList.add("fade-out");
+
+            // Setelah animasi selesai (0.5 detik), sembunyikan
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 500);
+        }, 100); // Tambahkan delay 100ms sebelum mulai fade-out
+    });
+</script>
+
+<style>
+    #loader {
+        transition: opacity 0.5s ease;
+    }
+
+    #loader.fade-out {
+        opacity: 0;
+        pointer-events: none;
+    }
+</style>
 
 <body class="bg-gray-100 font-sans font-semibold">
+    <div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="relative">
+            <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+            <div
+                class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+            </div>
+        </div>
+    </div>
     <div class="flex h-screen">
         <!-- Sidebar -->
         @include('layouts.sidebar')
