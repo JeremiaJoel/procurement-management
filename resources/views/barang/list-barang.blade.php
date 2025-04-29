@@ -18,9 +18,9 @@
 <body class="bg-gray-100 font-sans font-semibold">
     <div class="flex h-screen">
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebar-new')
         <!-- Main Content -->
-        <div class="flex-1 overflow-y-auto p-6 relative">
+        <div class="flex-1 overflow-y-auto p-6 relative z-10">
             <!-- Background Design -->
             <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%)">
             </div>
@@ -28,14 +28,14 @@
                 <h1 class="text-2xl font-bold text-white">
                     Menu Barang
                 </h1>
-                <div class="flex items-center">
+                {{-- <div class="flex items-center">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="text-white hover:bg-red-500 rounded-lg p-1">
                             Logout
                         </button>
                     </form>
-                </div>
+                </div> --}}
             </header>
 
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">

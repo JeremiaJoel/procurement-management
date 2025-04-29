@@ -15,9 +15,11 @@
 
 
 <body class="bg-gray-100 font-sans font-semibold">
+    @include('layouts.loader')
+
     <div class="flex h-screen">
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebar-new')
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-6 relative">
             <!-- Background Design -->
@@ -46,7 +48,8 @@
                             </a>
                         </li>
                         <li>
-                            <a class="text-red-600 border-b-2 border-red-600 pb-2" href="{{ route('permissions.index') }}">
+                            <a class="text-red-600 border-b-2 border-red-600 pb-2"
+                                href="{{ route('permissions.index') }}">
                                 List Menu
                             </a>
                         </li>

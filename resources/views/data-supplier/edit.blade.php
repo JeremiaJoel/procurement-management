@@ -16,6 +16,9 @@
 
 
 <body class="bg-gray-100 font-sans font-semibold">
+    @include('layouts.loader')
+
+
     <div class="flex h-screen">
         <!-- Sidebar -->
         @include('layouts.sidebar')

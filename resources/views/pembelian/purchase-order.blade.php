@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>PO Preview</title>
+    @include('layouts.loader')
 
     <style>
         .invoice-box {

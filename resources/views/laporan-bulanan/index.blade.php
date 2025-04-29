@@ -18,6 +18,8 @@
 </head>
 
 <body class="bg-gray-100 font-sans font-semibold">
+    @include('layouts.loader')
+
     <div class="flex h-screen">
         <!-- Loader -->
         <div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
@@ -30,7 +32,7 @@
         </div>
 
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('layouts.sidebar-new')
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-6 relative">
             <!-- Background Design -->
