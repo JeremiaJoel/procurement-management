@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <!-- resources/views/permissions/index.blade.php -->
@@ -59,9 +60,8 @@
                         </li>
                     </ul>
                 </nav>
-                <section class="mb-6 flex justify-center">
-                    <form action="{{ route('roles.update', $role->id) }}" method="POST"
-                        class="space-y-4 w-full max-w-3xl">
+                <section>
+                    <form action="{{ route('roles.update', $role->id) }}" method="POST" class="space-y-4 w-full">
                         @csrf
                         <div>
                             <label for="roles" class="block text-sm font-medium text-gray-700">Nama Role</label>
@@ -73,24 +73,64 @@
                             @enderror
                         </div>
 
-                        <div class="grid grid-cols-4">
-                            @if ($permissions->isNotEmpty())
-                                @foreach ($permissions as $permission)
-                                    <div class="mt-3">
-                                        <input {{ $hasPermissions->contains($permission->name) ? 'checked' : '' }}
-                                            type="checkbox" id="permission-{{ $permission->id }}" class="rounded"
-                                            name="permission[]" value="{{ $permission->name }}">
-                                        <label for="permission-{{ $permission->id }}">{{ $permission->name }}</label>
-                                    </div>
-                                @endforeach
+                        {{-- Kontainer permission yang bisa discroll --}}
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-h-[480px] overflow-y-auto pr-2 mb-6">
+                            @php
+                                $permissionGroups = [
+                                    'Barang' => ['barang'],
+                                    'Kategori' => ['kategori'],
+                                    'Supplier' => ['supplier'],
+                                    'Permintaan Pengadaan' => ['pengadaan'],
+                                    'Pembelian' => ['status', 'pdf', 'delete pengadaan'],
+                                    'Invoice' => ['invoice'],
+                                    'Laporan Harian' => ['laporan harian'],
+                                    'Laporan Bulanan' => ['laporan bulanan'],
+                                ];
+                            @endphp
 
-                            @endif
+                            @foreach ($permissionGroups as $label => $keywords)
+                                @php
+                                    $filtered = $permissions->filter(function ($permission) use ($keywords) {
+                                        foreach ($keywords as $keyword) {
+                                            if (Str::contains(Str::lower($permission->name), Str::lower($keyword))) {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    });
+                                @endphp
+
+                                @if ($filtered->isNotEmpty())
+                                    <fieldset class="border border-gray-300 rounded-md p-4 bg-gray-50 flex flex-col">
+                                        <legend class="mb-3 text-base font-semibold text-gray-700 px-1">
+                                            {{ $label }}</legend>
+                                        <div class="flex flex-col space-y-2 max-h-48 overflow-y-auto pr-1">
+                                            @foreach ($filtered as $permission)
+                                                <label for="permission-{{ $permission->id }}"
+                                                    class="inline-flex items-center cursor-pointer select-none">
+                                                    <input
+                                                        {{ $hasPermissions->contains($permission->name) ? 'checked' : '' }}
+                                                        type="checkbox" id="permission-{{ $permission->id }}"
+                                                        name="permission[]" value="{{ $permission->name }}"
+                                                        class="form-checkbox h-5 w-5 text-red-600 rounded focus:ring-red-500" />
+                                                    <span
+                                                        class="ml-2 text-gray-800 text-sm">{{ $permission->name }}</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+                                @endif
+                            @endforeach
                         </div>
 
+                        {{-- Tombol Submit di luar div scroll --}}
                         <div>
                             <button type="submit"
                                 class="w-full bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Update</button>
                         </div>
+
+
                     </form>
                 </section>
             </div>
