@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="mt-4 space-y-4">
-                    <a class="text-red-500 mt-2" href="{{ url()->previous() }}">
+                    <a class="text-red-500 mt-2" href="{{ route('barang.index') }}">
                         Cancel
                     </a>
                 </div>
@@ -32,7 +32,7 @@
                     <div>
                         <label class="block text-gray-700">
                             <x-input-label for="nama_kategori" :value="__('Nama Kategori')" />
-                            <x-text-input id="nama_kategori" class="block mt-1 w-full" type="text"
+                            <x-text-input id="nama_kategori" class="block mt-1 w-full p-3" type="text"
                                 name="nama_kategori" required autofocus autocomplete="nama_kategori" />
                             <x-input-error :messages="$errors->get('nama_kategori')" class="mt-2" />
                         </label>

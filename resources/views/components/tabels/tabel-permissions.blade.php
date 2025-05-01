@@ -50,6 +50,8 @@
 
     </tbody>
 </table>
+{{ $permissions->links() }}
+
 <script>
     const deletePermissionUrl = "{{ route('permissions.destroy') }}";
 </script>

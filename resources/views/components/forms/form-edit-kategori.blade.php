@@ -37,9 +37,10 @@
                             <div>
                                 <label class="block text-gray-700">
                                     <x-input-label for="nama_kategori" :value="__('Nama Kategori')" />
-                                    <x-text-input id="nama_kategori" class="block mt-1 w-full" type="text"
-                                        name="nama_kategori" required autofocus autocomplete="nama_kategori"
-                                        :value="old('nama_kategori', $category  ->nama)" />
+                                    <x-text-input id="nama_kategori"
+                                        class="block mt-1 w-full p-3 focus:ring-red-500 focus:border-red-500"
+                                        type="text" name="nama_kategori" required autofocus
+                                        autocomplete="nama_kategori" :value="old('nama_kategori', $category->nama)" />
                                     <x-input-error :messages="$errors->get('nama_kategori')" class="mt-2" />
                                 </label>
                             </div>

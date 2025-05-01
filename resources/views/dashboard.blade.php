@@ -55,12 +55,14 @@
                 </button>
                 <h1 class="text-white text-lg font-semibold truncate">Dashboard</h1>
                 <div class="ml-auto flex items-center space-x-4">
-                    <button aria-label="Notifications" class="text-white hover:text-red-200 focus:outline-none">
-                        <i class="fas fa-bell fa-lg"></i>
-                    </button>
-                    <button aria-label="User menu" class="text-white hover:text-red-200 focus:outline-none">
-                        <i class="fas fa-user-circle fa-lg"></i>
-                    </button>
+                    <div class="flex flex-col text-right">
+                        <span class="text-white font-semibold text-sm leading-tight truncate max-w-[120px]">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <span class="text-red-400 text-xs uppercase tracking-wide font-medium">
+                            {{ Auth::user()->roles->pluck('name')->implode(', ') }}
+                        </span>
+                    </div>
                 </div>
             </header>
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">

@@ -9,15 +9,11 @@
 
 <body>
     <div class="w-64 bg-white h-screen shadow-lg flex flex-col">
-        <div class="flex items-center justify-center h-14 border-b bg-red-500">
-            <div class="text-center">
-                <div class="text-xl font-semibold text-white truncate">
-                    {{ Auth::user()->name }}
-                </div>
-                <div class="text-sm text-white truncate">
-                    {{ Auth::user()->roles->pluck('name')->implode(', ') }}
-                </div>
-            </div>
+        <div class="flex items-center justify-center h-14 border-b">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-8 h-8 mr-3">
+            <span class="text-gray-900 font-semibold text-lg select-none">
+                VicProc
+            </span>
         </div>
 
 
@@ -48,8 +44,9 @@
                 <li>
                     <a href="{{ route('barang.index') }}"
                         class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
-                        {{ request()->routeIs('barang.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+   {{ request()->routeIs(['barang.*', 'kategori.*']) ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
                         <span class="inline-flex justify-center items-center ml-4">
+
                             <i class="fas fa-box"></i>
                         </span>
                         <span class="ml-3 text-sm tracking-wide truncate">Barang</span>
@@ -140,9 +137,9 @@
                 @can('Manajemen Menu')
                     <li>
                         <a href="{{ route('permissions.index') }}"
-                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-red-500 pr-6 {{ request()->routeIs('laporan-bulanan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                            <span class="inline-flex justify-center items-center ml-4">
-                                <i class="fas fa-clipboard-list"></i>
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
+                        {{ request()->routeIs('permissions.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent  ' }}">
+                            <i class="fas fa-clipboard-list"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Manajemen Utilitas</span>
                         </a>
@@ -150,18 +147,18 @@
                 @endcan
                 <li>
                     <a href="{{ route('roles.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-red-500 pr-6 {{ request()->routeIs('laporan-bulanan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-clipboard-list"></i>
+                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
+                    {{ request()->routeIs('roles.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                        <i class="fas fa-clipboard-list"></i>
                         </span>
                         <span class="ml-2 text-sm tracking-wide truncate">Manajemen Role</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('users.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-red-500 pr-6 {{ request()->routeIs('laporan-bulanan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-clipboard-list"></i>
+                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
+                    {{ request()->routeIs('users.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                        <i class="fas fa-clipboard-list"></i>
                         </span>
                         <span class="ml-2 text-sm tracking-wide truncate">Manajemen User</span>
                     </a>

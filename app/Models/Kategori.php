@@ -20,4 +20,10 @@ class Kategori extends Model
     {
         return $this->hasMany(Barang::class, 'id_kategori', 'id_kategori');
     }
-}
+
+    // Di model yang punya id_kategori (misalnya Barang)
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori');
+    }
+    }

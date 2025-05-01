@@ -10,6 +10,8 @@
     @vite(['resources/css/app.css', 'resources/js/kategori.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </head>
 
@@ -69,14 +71,16 @@
                         <line x1="3" y1="18" x2="21" y2="18"></line>
                     </svg>
                 </button>
-                <h1 class="text-white text-lg font-semibold truncate">Menu Kategori</h1>
+                <h1 class="text-white text-lg font-semibold truncate">Barang</h1>
                 <div class="ml-auto flex items-center space-x-4">
-                    <button aria-label="Notifications" class="text-white hover:text-red-200 focus:outline-none">
-                        <i class="fas fa-bell fa-lg"></i>
-                    </button>
-                    <button aria-label="User menu" class="text-white hover:text-red-200 focus:outline-none">
-                        <i class="fas fa-user-circle fa-lg"></i>
-                    </button>
+                    <div class="flex flex-col text-right">
+                        <span class="text-white font-semibold text-sm leading-tight truncate max-w-[120px]">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <span class="text-red-400 text-xs uppercase tracking-wide font-medium">
+                            {{ Auth::user()->roles->pluck('name')->implode(', ') }}
+                        </span>
+                    </div>
                 </div>
             </header>
 
@@ -88,34 +92,44 @@
                                 List Kategori Barang
                             </p>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="text-gray-500 cursor-pointer pb-2" href="{{ route('barang.create') }}">
                                 Menambah Barang
                             </a>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a class="text-gray-500 pb-2 cursor-default" href="#">
                                 Edit Barang
                             </a>
-                        </li>
-                        <li>
-                            <a class="text-gray-500 pb-2 cursor-pointer" href="{{ route('kategori.index') }}">
-                                Tambah Kategori
-                            </a>
-                        </li>
+                        </li> --}}
+                        {{-- <li>
+                                <a class="text-gray-500 pb-2 cursor-pointer" href="{{ route('kategori.index') }}">
+                                    Tambah Kategori
+                                </a>
+                            </li> --}}
                     </ul>
                 </nav>
+                <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-6">
+                    <a href="{{ route('barang.create') }}"
+                        class="inline-flex items-center justify-center px-5 py-3 bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto">
+                        <i class="fas fa-plus mr-2"></i> Tambah Barang
+                    </a>
+                    <a href="{{ route('kategori.index') }}"
+                        class="inline-flex items-center justify-center px-5 py-3 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-400 text-gray-800 font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto">
+                        <i class="fas fa-tags mr-2"></i> Tambah Kategori
+                    </a>
+                </div>
                 <div class="container mx-auto p-4">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Card 1 -->
                         @foreach ($categories as $category)
-                            <div
-                                class="bg-white rounded-lg shadow-xl p-4 hover:scale-105 hover:transition-all cursor-pointer">
+                            <div class="bg-white rounded-lg shadow-xl p-4 hover:scale-105 hover:transition-all cursor-pointer"
+                                onclick="window.location='{{ route('barang.by-category', $category->id_kategori) }}'">
                                 <div class="text-xl font-bold mb-4 inset-0 text-center">
                                     {{ $category->nama }}
                                 </div>
                                 <div class="flex justify-center items-center inset-0">
-                                    <a href="{{ route('barang.by-category', $category->id_kategori) }}">
+                                    <a>
 
                                         <img alt="{{ $category->nama }}"
                                             class="h-full w-full rounded-lg opacity-85 bg-cover"
@@ -124,13 +138,15 @@
                                 </div>
                                 <div class="text-center">
                                     <button type="button" class="btn btn-success px-3 items-center m-2"
-                                        onclick="window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'">
+                                        onclick="event.stopPropagation(); window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'">
                                         Edit
                                     </button>
+
                                     <button type="button" class="btn btn-danger px-2 items-center m-2 delete-btn"
-                                        data-id="{{ $category->id_kategori }}">
+                                        onclick="event.stopPropagation()" data-id="{{ $category->id_kategori }}">
                                         Delete
                                     </button>
+
                                 </div>
                             </div>
                         @endforeach
