@@ -25,11 +25,11 @@
         class="absolute bottom-0 right-0 w-60 h-60 bg-blue-500 rounded-full -mr-20 -mb-20 z-0 border-[20px] border-blue-900 translate-x-10 translate-y-12">
     </div>
     <div
-        class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row overflow-hidden max-w-7xl w-full justify-center h-[90vh] flex-nowrap">
-        <div class="md:w-1/2 p-8 relative flex flex-col justify-center bg-white">
-            <div class="absolute top-0 left-0 w-40 h-40 bg-blue-900 rounded-full -ml-20 -mt-20">
+        class="bg-white mx-8 rounded-lg shadow-lg flex flex-col md:flex-row overflow-hidden max-w-7xl w-full justify-center h-[90vh] flex-nowrap z-50">
+        <div class="lg:w-1/2 p-8 relative flex flex-col justify-center bg-white ">
+            <div class="hidden lg:block absolute top-0 left-0 w-40 h-40 bg-blue-900 rounded-full -ml-20 -mt-20">
             </div>
-            <div class="absolute bottom-0 right-0 w-40 h-40 bg-red-500 rounded-full -mr-20 -mb-20">
+            <div class="hidden lg:block absolute bottom-0 right-0 w-40 h-40 bg-red-500 rounded-full -mr-20 -mb-20">
             </div>
             <div class="text-center mb-8 relative z-10">
                 <h2 class="text-2xl font-bold text-gray-800">

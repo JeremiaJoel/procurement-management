@@ -128,21 +128,22 @@
                                 <div class="text-xl font-bold mb-4 inset-0 text-center">
                                     {{ $category->nama }}
                                 </div>
-                                <div class="flex justify-center items-center inset-0">
+                                <div class="flex justify-center items-center inset-0 mb-3">
                                     <a>
 
                                         <img alt="{{ $category->nama }}"
-                                            class="h-full w-full rounded-lg opacity-85 bg-cover"
+                                            class="aspect-[6/4] w-full rounded-lg opacity-85 object-cover"
                                             src="{{ asset('storage/' . $category->image) }}" />
                                     </a>
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-success px-3 items-center m-2"
+                                    <button type="button" class="btn btn-success px-3 items-center font-semibold m-2"
                                         onclick="event.stopPropagation(); window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'">
                                         Edit
                                     </button>
 
-                                    <button type="button" class="btn btn-danger px-2 items-center m-2 delete-btn"
+                                    <button type="button"
+                                        class="btn btn-danger px-2 items-center m-2 delete-btn font-semibold"
                                         onclick="event.stopPropagation()" data-id="{{ $category->id_kategori }}">
                                         Delete
                                     </button>
