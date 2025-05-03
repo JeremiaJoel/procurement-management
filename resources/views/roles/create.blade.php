@@ -13,81 +13,122 @@
 <body class="bg-gray-100 font-sans font-semibold">
     @include('layouts.loader')
 
-    <!-- Sidebar -->
-    @include('layouts.sidebar-new')
-    <!-- Main Content -->
-    <div class="flex-1 overflow-y-auto p-6 relative">
-        <!-- Background Design -->
-        <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);">
-        </div>
-        <header class="flex justify-between items-center mb-6 relative z-10">
-            <h1 class="text-2xl font-bold text-white">
-                Manajemen Role
-            </h1>
-            <div class="flex items-center">
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="text-white hover:bg-red-500 rounded-lg p-1">
-                        Logout
-                    </button>
-                </form>
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        @include('layouts.sidebar-new')
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto p-6 relative">
+            <!-- Background Design -->
+            <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);">
             </div>
-        </header>
-        <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
-            <nav class="mb-6">
-                <ul class="flex space-x-6">
-                    <li>
-                        <a class="text-red-600 border-b-2 border-red-600 pb-2" href="#">
-                            Membuat Role
-                        </a>
-                    </li>
-                    <li>
-                        <a class="text-gray-700 pb-2" href="{{ route('roles.index') }}">
-                            List Role
-                        </a>
-                    </li>
-                    <li>
-                        <p class="text-gray-700 pb-2 cursor-default" href="">
-                            Edit Role
-                        </p>
-                    </li>
+            <header class="flex justify-between items-center mb-6 relative z-10">
+                <h1 class="text-2xl font-bold text-white">
+                    Manajemen Role
+                </h1>
+                <div class="flex items-center">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="text-white hover:bg-red-500 rounded-lg p-1">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </header>
+            <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
+                <x-message></x-message>
+                <nav class="mb-6">
+                    <ul class="flex space-x-6">
+                        <li>
+                            <a class="text-red-600 border-b-2 border-red-600 pb-2 cursor-default" href="    ">
+                                Membuat Role
+                            </a>
+                        </li>
+                        <li>
+                            <a class="text-gray-700 pb-2" href="{{ route('roles.index') }}">
+                                List Role
+                            </a>
+                        </li>
+                        <li>
+                            <p class="cursor-default" href="">
+                                Edit Role
+                            </p>
+                        </li>
+                    </ul>
+                </nav>
+                <section>
+                    <form action="{{ route('roles.create') }}" method="POST" class="space-y-4 w-full">
+                        @csrf
+                        <div>
+                            <label for="roles" class="block text-sm font-medium text-gray-700">Nama Role</label>
+                            <input type="text" id="buat-role" name="name" value="{{ old('name') }}"
+                                placeholder="Role"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                            @error('role')
+                                <p class="text-red-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                </ul>
-            </nav>
-            <section class="mb-6 pr-5 flex justify-center">
-                <form action="{{ route('roles.store') }}" method="POST" class="space-y-4 w-full max-w-3xl">
-                    @csrf
-                    <div>
-                        <label for="roles" class="block text-sm font-medium text-gray-700">Nama Role</label>
-                        <input type="text" id="buat-role" name="name" value="{{ old('name') }}"
-                            placeholder="Role"
-                            class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
-                        @error('role')
-                            <p class="text-red-500 font-medium">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        {{-- Kontainer permission yang bisa discroll --}}
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-h-[480px] overflow-y-auto pr-2 mb-6">
+                            @php
+                                $permissionGroups = [
+                                    'Barang' => ['barang'],
+                                    'Kategori' => ['kategori'],
+                                    'Supplier' => ['supplier'],
+                                    'Permintaan Pengadaan' => ['pengadaan'],
+                                    'Pembelian' => ['status', 'pdf', 'delete pengadaan'],
+                                    'Invoice' => ['invoice'],
+                                    'Laporan Harian' => ['laporan harian'],
+                                    'Laporan Bulanan' => ['laporan bulanan'],
+                                ];
+                            @endphp
 
-                    <div class="grid grid-cols-4">
-                        @if ($permissions->isNotEmpty())
-                            @foreach ($permissions as $permission)
-                                <div class="mt-3">
-                                    <input type="checkbox" id="permission-{{ $permission->id }}" class="rounded"
-                                        name="permission[]" value="{{ $permission->name }}">
-                                    <label for="permission-{{ $permission->id }}">{{ $permission->name }}</label>
-                                </div>
+                            @foreach ($permissionGroups as $label => $keywords)
+                                @php
+                                    $filtered = $permissions->filter(function ($permission) use ($keywords) {
+                                        foreach ($keywords as $keyword) {
+                                            if (Str::contains(Str::lower($permission->name), Str::lower($keyword))) {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    });
+                                @endphp
+
+                                @if ($filtered->isNotEmpty())
+                                    <fieldset class="border border-gray-300 rounded-md p-4 bg-gray-50 flex flex-col">
+                                        <legend class="mb-3 text-base font-semibold text-gray-700 px-1">
+                                            {{ $label }}</legend>
+                                        <div class="flex flex-col space-y-2 max-h-48 overflow-y-auto pr-1">
+                                            @foreach ($filtered as $permission)
+                                                <label for="permission-{{ $permission->id }}"
+                                                    class="inline-flex items-center cursor-pointer select-none">
+                                                    <input
+                                                        type="checkbox" id="permission-{{ $permission->id }}"
+                                                        name="permission[]" value="{{ $permission->name }}"
+                                                        class="form-checkbox h-5 w-5 text-red-600 rounded focus:ring-red-500" />
+                                                    <span
+                                                        class="ml-2 text-gray-800 text-sm">{{ $permission->name }}</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+                                @endif
                             @endforeach
+                        </div>
 
-                        @endif
-                    </div>
+                        {{-- Tombol Submit di luar div scroll --}}
+                        <div>
+                            <button type="submit"
+                                class="w-full bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Submit</button>
+                        </div>
 
-                    <div>
-                        <button type="submit"
-                            class="w-full bg-red-500 text-white p-2 rounded-md hover:bg-red-600">Submit</button>
-                    </div>
-                </form>
-            </section>
+
+                    </form>
+                </section>
+            </div>
         </div>
-    </div>
     </div>
 </body>
 
