@@ -44,30 +44,33 @@
             </div>
             <form action="{{ route('login') }}" method="POST" class="relative z-10">
                 @csrf
+                {{-- Email --}}
                 <div class="mb-4">
-                    <label class="block text-gray-700">
-                        <i class="fas fa-user absolute mt-3 ml-3 text-gray-400">
-                        </i>
-                        <input name="email"
+                    <label class="block text-gray-700 relative">
+                        <i class="fas fa-user absolute mt-3 ml-3 text-gray-400"></i>
+                        <input value="{{ old('email') }}" name="email"
                             class="form-control pl-10 pr-4 py-3 rounded-lg w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') is-invalid @enderror"
                             placeholder="Email" type="email" />
                         @error('email')
-                            <div class="invalid-feedback">Email or password is invalid</div>
+                            <div class="invalid-feedback text-red-500 text-sm mt-1">Email is invalid</div>
                         @enderror
                     </label>
                 </div>
+
+                {{-- Password --}}
                 <div class="mb-6">
-                    <label class="block text-gray-700">
-                        <i class="fas fa-lock absolute mt-3 ml-3 text-gray-400">
-                        </i>
+                    <label class="block text-gray-700 relative">
+                        <i class="fas fa-lock absolute mt-3 ml-3 text-gray-400"></i>
                         <input name="password"
-                            class="form-control pl-10 pr-4 py-3 rounded-lg w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') is-invalid @enderror"
+                            class="form-control pl-10 pr-4 py-3 rounded-lg w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') is-invalid @enderror"
                             placeholder="Password" type="password" />
-                        @error('password')
-                            <div class="invalid-feedback">Password is invalid</div>
+                        {{-- Tampilkan error yang sama jika 'email' error --}}
+                        @error('email')
+                            <div class="invalid-feedback text-red-500 text-sm mt-1">Password is invalid</div>
                         @enderror
                     </label>
                 </div>
+
 
                 <button
                     class="bg-gradient-to-r from-red-500 to-blue-950 text-white font-bold py-3 rounded-lg w-full shadow-lg hover:from-red-600 hover:to-blue-600">

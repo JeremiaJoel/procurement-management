@@ -70,10 +70,7 @@
                     Logout
                 </button>
             </form>
-
-
         </div>
-
         <nav class="flex-1 overflow-y-auto px-4 py-6">
             <ul class="font-sans space-y-4">
                 <li>

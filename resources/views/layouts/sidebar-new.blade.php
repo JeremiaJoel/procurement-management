@@ -36,105 +36,135 @@
                     </a>
                 </li>
 
-                <li class="px-4">
-                    <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Referensi</div>
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('barang.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                @canany(['Lihat Barang', 'Lihat Supplier'])
+                    <li class="px-4">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500">Referensi</div>
+                        </div>
+                    </li>
+                @endcanany
+                @can('Lihat Barang')
+                    <li>
+                        <a href="{{ route('barang.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
    {{ request()->routeIs(['barang.*', 'kategori.*']) ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
+                            <span class="inline-flex justify-center items-center ml-4">
 
-                            <i class="fas fa-box"></i>
-                        </span>
-                        <span class="ml-3 text-sm tracking-wide truncate">Barang</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('supplier.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                                <i class="fas fa-box"></i>
+                            </span>
+                            <span class="ml-3 text-sm tracking-wide truncate">Barang</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Lihat Supplier')
+                    <li>
+                        <a href="{{ route('supplier.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
                         {{ request()->routeIs('supplier.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Data Supplier</span>
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Data Supplier</span>
 
-                    </a>
-                </li>
-                <li class="px-4">
-                    <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Transaksi</div>
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('pengadaan.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
-                        {{ request()->routeIs('pengadaan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-cube"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Permintaan Pengadaan</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('pembelian.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
-                        {{ request()->routeIs('pembelian.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <span class="inline-flex justify-center items-center">
+                        </a>
+                    </li>
+                @endcan
+                @canany(['Lihat Permintaan Pengadaan', 'Lihat Pembelian'])
+                    <li class="px-4">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500">Transaksi</div>
+                        </div>
+                    </li>
+                @endcanany
+
+                @can('Lihat Permintaan Pengadaan')
+                    <li>
+                        <a href="{{ route('pengadaan.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+            {{ request()->routeIs('pengadaan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-cube"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Permintaan Pengadaan</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Lihat Pembelian')
+                    <li>
+                        <a href="{{ route('pembelian.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+            {{ request()->routeIs('pembelian.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                            <span class="inline-flex justify-center items-center ml-4">
                                 <i class="fas fa-shopping-cart"></i>
                             </span>
-                            <span class="p-2 text-sm tracking-wide truncate">Pembelian</span>
-                    </a>
-                </li>
-                <li class="px-4">
-                    <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Laporan</div>
-                    </div>
-                </li>
-                <li>
-                    <a href="{{ route('invoice.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                            <span class="ml-2 text-sm tracking-wide truncate">Pembelian</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @canany(['Lihat Invoice', 'Lihat Laporan Harian', 'Lihat Laporan Bulanan'])
+                    <li class="px-4">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500">Laporan</div>
+                        </div>
+                    </li>
+                @endcanany
+
+                @can('Lihat Invoice')
+                    <li>
+                        <a href="{{ route('invoice.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
                         {{ request()->routeIs('invoice.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-file-invoice"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Invoice</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('laporan-harian.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-file-invoice"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Invoice</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Lihat Laporan Harian')
+                    <li>
+                        <a href="{{ route('laporan-harian.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
                         {{ request()->routeIs('laporan-harian.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-clipboard-list"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Laporan Harian</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('laporan-bulanan.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-clipboard-list"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Laporan Harian</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Lihat Laporan Bulanan')
+                    <li>
+                        <a href="{{ route('laporan-bulanan.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
                         {{ request()->routeIs('laporan-bulanan.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <span class="inline-flex justify-center items-center ml-4">
-                            <i class="fas fa-clipboard-list"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Laporan Bulanan</span>
-                    </a>
-                </li>
-                <li class="px-4">
-                    <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Utility</div>
-                    </div>
-                </li>
-                @can('Manajemen Menu')
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-clipboard-list"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Laporan Bulanan</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @canany(['Manajemen Utilitas', 'Manajemen Role', 'Manajemen User'])
+                    <li class="px-4">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500">Utility</div>
+                        </div>
+                    </li>
+                @endcanany
+
+                @can('Manajemen Utilitas')
                     <li>
                         <a href="{{ route('permissions.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
@@ -145,24 +175,31 @@
                         </a>
                     </li>
                 @endcan
-                <li>
-                    <a href="{{ route('roles.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
+
+                @can('Manajemen Role')
+                    <li>
+                        <a href="{{ route('roles.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
                     {{ request()->routeIs('roles.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <i class="fas fa-clipboard-list"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Manajemen Role</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('users.index') }}"
-                        class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
+                            <i class="fas fa-clipboard-list"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Manajemen Role</span>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('Manajemen User')
+                    <li>
+                        <a href="{{ route('users.index') }}"
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
                     {{ request()->routeIs('users.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                        <i class="fas fa-clipboard-list"></i>
-                        </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Manajemen User</span>
-                    </a>
-                </li>
+                            <i class="fas fa-clipboard-list"></i>
+                            </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">Manajemen User</span>
+                        </a>
+                    </li>
+                @endcan
+
                 <li class="border-t">
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

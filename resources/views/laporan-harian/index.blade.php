@@ -38,16 +38,25 @@
             <div class="absolute inset-0 bg-blue-900" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);">
             </div>
             <header class="flex justify-between items-center mb-6 relative z-10">
-                <h1 class="text-2xl font-bold text-white">
-                    Laporan Harian
-                </h1>
-                <div class="flex items-center">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="text-white hover:bg-red-500 rounded-lg p-1">
-                            Logout
-                        </button>
-                    </form>
+                <button id="sidebarToggle" aria-label="Toggle sidebar"
+                    class="text-white focus:outline-none mr-6 lg:hidden">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="text-white text-lg font-semibold truncate">Laporan Harian</h1>
+                <div class="ml-auto flex items-center space-x-4">
+                    <div class="flex flex-col text-right">
+                        <span class="text-white font-semibold text-sm leading-tight truncate max-w-[120px]">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <span class="text-red-400 text-xs uppercase tracking-wide font-medium">
+                            {{ Auth::user()->roles->pluck('name')->implode(', ') }}
+                        </span>
+                    </div>
                 </div>
             </header>
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
@@ -64,8 +73,8 @@
                     </button>
                 </form>
                 <div class="bg-gray-100 rounded p-4">
-                    <h2 class="text-xl mb-4">Rekap laporan pengadaan bulan:
-                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('F Y') }}
+                    <h2 class="text-xl mb-4">Rekap laporan pengadaan hari:
+                        {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}
                     </h2>
 
                     <!-- Classes Table -->

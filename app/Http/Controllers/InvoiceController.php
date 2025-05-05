@@ -16,9 +16,25 @@ class InvoiceController extends Controller
             'invoices' => $invoices,
         ]);
     }
-    //Fungsi untuk download Invoice
+    //Fungsi untuk menghapus invoice
+    public function destroy(Request $request)
+    {
+        $id = $request->kode_invoice;
 
-    //Fungsi untuk generate view PDF Invoice
+        $invoice = Invoice::find($id);
 
+        if ($invoice == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Invoice tidak ditemukan'
+            ]);
+        }
 
+        $invoice->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Invoice berhasil dihapus'
+        ]);
+    }
 }

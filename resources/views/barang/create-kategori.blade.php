@@ -53,7 +53,7 @@
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
                 <nav class="mb-3">
                     <ul class="flex space-x-6">
-                        
+
                         <li>
                             <p class="text-red-600 border-b-2 border-red-600 cursor-pointer pb-2" href="">
                                 Tambah Kategori

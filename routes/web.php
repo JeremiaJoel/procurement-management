@@ -94,10 +94,12 @@ Route::middleware('auth')->group(function () {
 
     //Routes menu invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::delete('/invoice', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
 
     //Routes tampilan invoice
     Route::get('/invoice/{id}', [InvoiceLayout::class, 'index'])->name('invoiceLayout.index');
     Route::get('/invoice/{id}/download', [InvoiceLayout::class, 'downloadpdf'])->name('invoice.download');
+
 
     //Routes tampilan surat Purchase order
     Route::get('/purchase-order/{id}', [PurchaseOrderController::class, 'index'])->name('purchase-order.index');

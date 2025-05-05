@@ -60,16 +60,16 @@
                                 List Barang {{ $category->nama }}
                             </p>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="text-gray-500 cursor-pointer pb-2" href="{{ route('barang.create') }}">
                                 Menambah Barang
                             </a>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a class="text-gray-500 pb-2 cursor-default" href="#">
                                 Edit Barang
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
                 <div class="container mx-auto p-4 font-sans font-semibold ">
@@ -91,14 +91,19 @@
                                     <button class="btn btn-primary btn-detail" data-id="{{ $barang->barang_id }}">
                                         Detail
                                     </button>
-                                    <button type="button" class="btn btn-success"
-                                        onclick="window.location.href='{{ route('barang.edit', $barang->barang_id) }}'">
-                                        Edit
-                                    </button>
-                                    <button type="button" class="btn btn-danger delete-btn"
-                                        data-id="{{ $barang->barang_id }}">
-                                        Delete
-                                    </button>
+                                    @can('Edit Barang')
+                                        <button type="button" class="btn btn-success"
+                                            onclick="window.location.href='{{ route('barang.edit', $barang->barang_id) }}'">
+                                            Edit
+                                        </button>
+                                    @endcan
+
+                                    @can('Hapus Barang')
+                                        <button type="button" class="btn btn-danger delete-btn"
+                                            data-id="{{ $barang->barang_id }}">
+                                            Delete
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         @endforeach

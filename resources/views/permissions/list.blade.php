@@ -61,7 +61,7 @@
                         </li>
                         <li>
                             <a class="text-red-600 border-b-2 border-red-600 pb-2">
-                                List Menu
+                                List Utilitas
                             </a>
                         </li>
                         <li>

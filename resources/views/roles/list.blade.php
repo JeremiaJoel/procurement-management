@@ -14,7 +14,7 @@
 <!-- resources/views/permissions/index.blade.php -->
 
 
-<body class="bg-gray-100 font-sans font-semibold">
+<body class="bg-blue-900 font-sans font-semibold">
     @include('layouts.loader')
 
     <div class="flex h-screen">

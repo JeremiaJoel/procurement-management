@@ -50,22 +50,28 @@
                         {{ $pengadaan->status }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button class="ubah-status-btn text-green-600 hover:text-green-900 py-1 rounded"
-                            data-id="{{ $pengadaan->kode_pengadaan }}" data-status="{{ $pengadaan->status }}">
-                            Ubah Status
-                        </button>
+                        @can('Ubah Status Pengadaan')
+                            <button class="ubah-status-btn text-green-600 hover:text-green-900 py-1 rounded"
+                                data-id="{{ $pengadaan->kode_pengadaan }}" data-status="{{ $pengadaan->status }}">
+                                Ubah Status
+                            </button>
+                        @endcan
+
+                        @can('Download Pengadaan')
+                            <a href="{{ route('purchase-order.index', ['id' => $pengadaan->kode_pengadaan]) }}"
+                                target="_blank" class="ml-2 text-blue-600 hover:text-red-900">
+                                Download PDF
+                            </a>
+                        @endcan
 
 
+                        @can('Hapus Pengadaan')
+                            <button href=""
+                                class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn"
+                                data-id="{{ $pengadaan->kode_pengadaan }}">Delete</button>
+                        @endcan
 
-                        <a href="{{ route('purchase-order.index', ['id' => $pengadaan->kode_pengadaan]) }}"
-                            target="_blank" class="ml-2 text-blue-600 hover:text-red-900">
-                            Download PDF
-                        </a>
 
-
-                        <button href=""
-                            class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn"
-                            data-id="{{ $pengadaan->kode_pengadaan }}">Delete</button>
                     </td>
                 </tr>
             @endforeach

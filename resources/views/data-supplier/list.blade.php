@@ -60,11 +60,11 @@
                                 List Supplier
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a class="text-gray-700 pb-2 cursor-pointer" href="{{ route('supplier.create') }}">
-                                Add Supplier
+                                Tambah Supplier
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a class="text-gray-700 pb-2 cursor-default" href="">
                                 Edit Supplier
@@ -72,6 +72,13 @@
                         </li>
                     </ul>
                 </nav>
+                @can('Tambah Supplier')
+                    <a href="{{ route('supplier.create') }}"
+                        class="inline-flex items-center justify-center px-5 py-3 bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto m-2">
+                        <i class="fas fa-plus mr-2"></i> Tambah Supplier
+                    </a>
+                @endcan
+
                 <section>
                     <x-tabels.tabel-suppliers :suppliers="$suppliers"></x-tabels.tabel-suppliers>
                 </section>

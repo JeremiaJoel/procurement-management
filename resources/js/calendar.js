@@ -42,7 +42,7 @@ function renderCalendar() {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-        daysContainer.innerHTML += `<div class="flex items-center justify-center cursor-pointer w-[41px] h-[41px] text-black dark:text-white rounded-full hover:bg-red-500 hover:text-white">${i}</div>`;
+        daysContainer.innerHTML += `<div class="flex items-center justify-center cursor-pointer w-[41px] h-[41px] text-black dark:text-white rounded-full hover:bg-blue-500 hover:text-white">${i}</div>`;
     }
 
     document.querySelectorAll("#days-container div").forEach((day) => {
@@ -55,14 +55,14 @@ function renderCalendar() {
             // Hapus highlight sebelumnya
             document.querySelectorAll("#days-container div").forEach((d) => {
                 d.classList.remove(
-                    "bg-red-600",
+                    "bg-blue-600",
                     "text-white",
                     "dark:text-white"
                 );
             });
 
             // Tambahkan highlight ke tanggal terpilih
-            this.classList.add("bg-red-600", "text-white", "dark:text-white");
+            this.classList.add("bg-blue-600", "text-white", "dark:text-white");
         });
     });
 }
@@ -111,11 +111,20 @@ document.addEventListener("click", function (event) {
 });
 // Saat halaman dimuat, ambil tanggal dari localStorage
 document.addEventListener("DOMContentLoaded", function () {
-    const savedDate = localStorage.getItem("selectedDate");
-    if (savedDate) {
-        datepicker.value = savedDate;
-        selectedDate = savedDate;
+    let savedDate = localStorage.getItem("selectedDate");
+
+    if (!savedDate) {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = zeroPad(today.getMonth() + 1);
+        const day = zeroPad(today.getDate());
+        savedDate = `${year}-${month}-${day}`;
+
+        localStorage.setItem("selectedDate", savedDate);
     }
+
+    datepicker.value = savedDate;
+    selectedDate = savedDate;
 });
 
 window.addEventListener("load", function () {
