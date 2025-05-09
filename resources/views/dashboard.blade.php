@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </header>
-            <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
+            <div class="bg-white p-6 rounded-lg shadow-lg relative z-10 min-h-screen">
 
                 <section class="mb-6">
                     <h2 class="text-xl font-bold mb-4">
@@ -96,7 +96,8 @@
                                 </svg>
                             </div>
                             @can('Lihat Supplier')
-                                <a class="text-red-600 flex items-center" href="{{ route('supplier.index') }}">
+                                <a class="text-red-600 flex items-center hover:text-blue-500"
+                                    href="{{ route('supplier.index') }}">
                                     Lihat Detail
                                     <i class="fas fa-arrow-right ml-2"></i>
                                 </a>
@@ -115,7 +116,8 @@
                                 </div>
                                 <i class="fas fa-clipboard-list text-blue-500 text-3xl"></i>
                             </div>
-                            <a class="text-red-600 flex items-center" href="#">
+                            <a class="text-red-600 flex items-center  hover:text-blue-500"
+                                href="{{ route('pembelian.index') }}">
                                 Lihat Detail
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </a>
@@ -145,18 +147,18 @@
                         <div class="w-1/2 h-[430px] bg-gray-50 border-2 border-gray-300 rounded-lg p-4 flex flex-col">
                             <h2 class="text-lg font-bold text-gray-700 mb-2 text-center">Barang Per Kategori</h2>
                             <div class="flex-1">
-                                <canvas id="myChart" class="w-full h-full"></canvas>
+                                <canvas id="barangPerKategori" class="w-full h-full"></canvas>
                             </div>
                             <script>
-                                const ctx = document.getElementById('myChart');
+                                const ctx = document.getElementById('barangPerKategori');
 
                                 new Chart(ctx, {
                                     type: 'bar',
                                     data: {
-                                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                        labels: {!! json_encode($namaKategori) !!},
                                         datasets: [{
-                                            label: '# of Votes',
-                                            data: [12, 19, 3, 5, 2, 3],
+                                            label: 'Jumlah Barang',
+                                            data: {!! json_encode($jumlahBarangPerKategori) !!},
                                             borderWidth: 1
                                         }]
                                     },
@@ -175,9 +177,35 @@
 
                         <!-- Kanan -->
                         <div
-                            class="w-1/2 h-[430px] bg-gray-50 border-2 border-gray-300 rounded-lg flex items-center justify-center text-gray-400 text-lg font-semibold select-none">
-                            Grafik Bar Kanan
+                            class="w-1/2 h-[430px] bg-gray-50 border-2 border-gray-300 rounded-lg p-4 flex flex-col overflow-hidden">
+                            <h2 class="text-lg font-bold text-gray-700 mb-2 text-center">Pengadaan Barang</h2>
+                            <div class="flex-1 relative">
+                                <canvas id="pengadaanChart" class="absolute inset-0 w-full h-full"></canvas>
+                            </div>
+                            <script>
+                                const ctx2 = document.getElementById('pengadaanChart');
+
+                                new Chart(ctx2, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: {!! json_encode($labelPengadaan) !!},
+                                        datasets: [{
+                                            label: 'Jumlah Pengadaan',
+                                            data: {!! json_encode($jumlahPengadaan) !!},
+                                            backgroundColor: ['#4CAF50', '#FF9800'],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                    }
+                                });
+                            </script>
                         </div>
+
+
+
                     </div>
                 </section>
 

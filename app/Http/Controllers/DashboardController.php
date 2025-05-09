@@ -12,23 +12,31 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $jumlahApproved = PermintaanPengadaan::where('status', 'Approved')->count();
+        $jumlahPending = PermintaanPengadaan::where('status', '!=', 'Approved')->count();
+
         $data = [
-            'jumlahBarang' => Barang::count(),
-            'jumlahSupplier' => Supplier::count(),
-            'jumlahPengadaan' => PermintaanPengadaan::count(),
+            'jumlahBarang'        => Barang::count(),
+            'jumlahSupplier'      => Supplier::count(),
+            'jumlahPengadaan'     => PermintaanPengadaan::count(),
+            'pengadaanApproved'   => $jumlahApproved,
+            'pengadaanPending'    => $jumlahPending,
         ];
 
         $kategori = Kategori::withCount('barang')->get();
-        // dd($kategori);
         $namaKategori = $kategori->pluck('nama')->toArray();
-        // dd($namaKategori);
         $jumlahBarangPerKategori = $kategori->pluck('barang_count')->toArray();
-        // dd($jumlahBarangPerKategori); // [12, 5, ...]
 
+        // Tambahkan label dan jumlah untuk pie chart
+        $labelPengadaan = ['Approves', 'Sedang Diproses'];
+        $jumlahPengadaan = [$jumlahApproved, $jumlahPending];
 
-        return view(
-            'dashboard',
-            compact('data')
-        );
+        return view('dashboard', compact(
+            'data',
+            'namaKategori',
+            'jumlahBarangPerKategori',
+            'labelPengadaan',
+            'jumlahPengadaan'
+        ));
     }
 }
