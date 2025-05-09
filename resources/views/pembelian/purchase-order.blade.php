@@ -187,7 +187,8 @@
                     <tr>
                         <td>{{ $barang->barang->nama }}</td>
                         <td>{{ $barang->kuantitas }}</td>
-                        <td>{{ $barang->harga }}</td>
+                        <td>Rp.
+                            {{ number_format($barang->harga, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -204,7 +205,8 @@
                 <!-- Add Total Row -->
                 <tr style="font-weight: bold; border: none;">
                     <td style="text-align: right; padding: 5px; border: none;">Total Harga</td>
-                    <td style="text-align: right; padding: 5px; border: none;">{{ $pengadaan->total_harga }}</td>
+                    <td style="text-align: right; padding: 5px; border: none;">Rp.
+                        {{ number_format($pengadaan->total_harga, 0, ',', '.') }}</td>
                 </tr>
 
             </tbody>

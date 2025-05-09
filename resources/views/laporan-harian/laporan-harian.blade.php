@@ -206,7 +206,8 @@
                     <tr>
                         <td>{{ 1 + $index }}</td>
                         <td>{{ $pengadaan->nama_pengadaan }}</td>
-                        <td>{{ $pengadaan->total_harga }}</td>
+                        <td>Rp.
+                            {{ number_format($pengadaan->total_harga, 0, ',', '.') }}</td>
                         <td>{{ $pengadaan->status }}</td>
                     </tr>
                 @endforeach

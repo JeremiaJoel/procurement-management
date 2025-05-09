@@ -94,7 +94,7 @@
                                                 {{ $pengadaan->nama_pengadaan }}
                                             </td>
                                             <td class="py-4 px-6 border-b border-gray-200">
-                                                {{ $pengadaan->total_harga }}
+                                                Rp{{ number_format($pengadaan->total_harga, 0, ',', '.') }}
                                             </td>
                                             <td class="py-4 px-6 border-b border-gray-200">
                                                 <span

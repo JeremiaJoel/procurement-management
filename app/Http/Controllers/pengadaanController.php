@@ -50,7 +50,7 @@ class pengadaanController extends Controller
             'tanggal' => now(),
             'nama_supplier' => $request->nama_supplier,
             'keterangan' => $request->keterangan,
-            'total_harga' => $request->total_harga,
+            'total_harga' => (int) preg_replace('/[^0-9]/', '', $request->total_harga),
             'status' => 'Sedang diproses',
             'pajak' => $request->pajak,
         ]);

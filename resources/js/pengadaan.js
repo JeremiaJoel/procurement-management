@@ -77,31 +77,19 @@ function updateTotalHarga() {
         let harga = hargaText ? parseInt(hargaText) : 0;
 
         let quantityText = $(this).find(".quantity").text().trim();
-        let quantity = quantityText ? parseInt(quantityText) : 1; // Default 1 jika tidak valid
-
-        console.log(
-            `Row ${
-                index + 1
-            }: Harga = ${harga}, Quantity = ${quantity}, Subtotal = ${
-                harga * quantity
-            }`
-        );
+        let quantity = quantityText ? parseInt(quantityText) : 1;
 
         total += harga * quantity;
     });
 
-    // Ambil nilai PPN dari input dan pastikan hanya angka
+    // Hitung PPN dan bulatkan ke integer
     let ppnPersen = parseFloat($(".ppn-input").val().replace(/\D/g, "")) || 0;
-
-    let ppn = (total * ppnPersen) / 100; // Hitung PPN
-    let totalSetelahPPN = total + ppn; // Total harga setelah PPN
-
-    console.log(`Total Harga Sebelum PPN: ${total}`);
-    console.log(`PPN (${ppnPersen}%): ${ppn}`);
-    console.log(`Total Harga Setelah PPN: ${totalSetelahPPN}`);
+    let ppn = Math.round((total * ppnPersen) / 100); // PPN dibulatkan
+    let totalSetelahPPN = total + ppn;
 
     $("#totalHarga").text(formatRupiah(totalSetelahPPN.toString(), "Rp. "));
-    return formatRupiah(totalSetelahPPN.toString(), "Rp. ");
+
+    return totalSetelahPPN; // return as integer
 }
 
 //Fungsi untuk format Rupiah pada harga di permintaan pengadaan
@@ -260,12 +248,14 @@ $("#submit-pengadaan").click(function () {
     // Loop setiap baris tabel untuk mengambil data barang
     $("tbody tr").each(function () {
         let hargaText = $(this).find(".harga-input").val();
-        let hargaNumeric = hargaText ? hargaText.replace(/[^0-9]/g, "") : "0"; // Ambil angka saja
-        let hargaFormatted = formatRupiah(hargaNumeric, "Rp. "); // Ubah ke format Rupiah
+        let hargaNumeric = hargaText
+            ? parseInt(hargaText.replace(/[^0-9]/g, ""))
+            : 0;
+
         let row = {
-            id: $(this).data("id"), // Ambil ID barang
-            quantity: $(this).find(".quantity").text().trim(), // Ambil kuantitas
-            harga: hargaFormatted,
+            id: $(this).data("id"),
+            quantity: $(this).find(".quantity").text().trim(),
+            harga: hargaNumeric, // Sudah dalam bentuk integer
         };
 
         if (row.id && row.quantity) {
