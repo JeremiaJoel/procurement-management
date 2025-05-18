@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/kategori/{id}/edit', [BarangController::class, 'editKategori'])->name('kategori.edit');
     Route::post('/kategori/{id}', [BarangController::class, 'updateKategori'])->name('kategori.update');
     Route::delete('/kategori', [BarangController::class, 'destroyKategori'])->name('kategori.destroy');
+    Route::get('/barang/import', [BarangController::class, 'excelIndex'])->name('uploadBarang.index');
 
 
 
@@ -119,6 +120,10 @@ Route::middleware('auth')->group(function () {
     //Routes untuk menu laporan bulanan
     route::get('/laporan-bulanan', [laporanBulanan::class, 'index'])->name('laporan-bulanan.index');
     route::get('/laporan-bulanan/{bulan}', [laporanBulanan::class, 'layoutBulanan'])->name('laporan-bulanan.browser');
+    route::get('/laporan-bulanan/{bulan}/download', [laporanBulanan::class, 'downloadpdf'])->name('laporan-bulanan.download');
+
+
+
 
     Route::get('/filter-barang', [BarangController::class, 'filterBarang'])->name('filter.barang');
 });

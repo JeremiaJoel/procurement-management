@@ -194,7 +194,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 25%;">Kode Pengadaan</th>
+                    <th style="width: 5%;">No</th>
                     <th style="width: 40%;">Nama Pengadaan</th>
                     <th style="width: 20%;">Total Harga</th>
                     <th style="width: 20%;">Status</th>
@@ -207,7 +207,7 @@
                         <td>{{ 1 + $index }}</td>
                         <td>{{ $pengadaan->nama_pengadaan }}</td>
                         <td>Rp.
-                            {{ number_format($pengadaan->total_harga, 0, ',', '.') }}/td>
+                            {{ number_format($pengadaan->total_harga, 0, ',', '.') }}
                         <td>{{ $pengadaan->status }}</td>
                     </tr>
                 @endforeach
@@ -220,19 +220,19 @@
                     <td style="text-align: right; padding: 10px; border:none" colspan="3">
                         <div
                             style="display: inline-block; padding: 8px 16px; background-color: #f3f4f6; border: 1px solid #d1d5db; border-radius: 4px; font-weight: bold;">
-                            Total Pengeluaran: Rp {{ number_format($totalHarga, 0, ',', '.') }}
+                            Total Pengeluaran: Rp {{ number_format($totalHargaApproved, 0, ',', '.') }}
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        {{-- @if (strpos(url()->current(), 'download') === false)
+        @if (strpos(url()->current(), 'download') === false)
             <div class="download-wrapper">
-                <a class="download-pdf" href="{{ route('laporan-harian.download', ['tanggal' => $tanggal]) }}">
+                <a class="download-pdf" href="{{ route('laporan-bulanan.download', ['bulan' => $bulan]) }}">
                     Download PDF
                 </a>
             </div>
-        @endif --}}
+        @endif
 
     </div>
 </body>

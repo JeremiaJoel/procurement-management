@@ -194,7 +194,7 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 25%;">Kode Pengadaan</th>
+                    <th style="width: 10%;">No</th>
                     <th style="width: 40%;">Nama Pengadaan</th>
                     <th style="width: 20%;">Total Harga</th>
                     <th style="width: 20%;">Status</th>
@@ -220,7 +220,7 @@
                     <td style="text-align: right; padding: 10px; border:none" colspan="3">
                         <div
                             style="display: inline-block; padding: 8px 16px; background-color: #f3f4f6; border: 1px solid #d1d5db; border-radius: 4px; font-weight: bold;">
-                            Total Pengeluaran: Rp {{ number_format($totalHarga, 0, ',', '.') }}
+                            Total Pengeluaran: Rp {{ number_format($totalHargaApproved, 0, ',', '.') }}
                         </div>
                     </td>
                 </tr>

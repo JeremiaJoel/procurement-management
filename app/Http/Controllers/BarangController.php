@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Imports\ImportExcel;
+use Maatwebsite\Excel\Facades\Excel;
+use Sabberworm\CSS\Property\Import;
 
 class BarangController extends Controller
 {
@@ -64,7 +67,7 @@ class BarangController extends Controller
             'nama_barang' => ['required', 'string', 'max:255'],
             'kategori' => ['required', 'string', 'exists:kategori,nama'],
             'spesifikasi' => ['required', 'string'],
-            'image' => ['required', 'image', 'file', 'max:100000'] // Validasi gambar
+            'image' => ['nullable', 'image', 'file', 'max:100000'] // Validasi gambar
         ]);
 
         // Cari kategori berdasarkan nama
@@ -285,5 +288,15 @@ class BarangController extends Controller
             'status' => true,
             'message' => 'Kategori berhasil dihapus'
         ]);
+    }
+
+    //Fungsi Untuk menampilkan halaman upload excel
+    public function excelIndex()
+    {
+        return view('barang.upload-excel');
+    }
+    public function import(Request $request)
+    {
+        dd($request->file('excel_file'));
     }
 }

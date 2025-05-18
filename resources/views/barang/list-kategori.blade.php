@@ -115,6 +115,11 @@
                             class="inline-flex items-center justify-center px-5 py-3 bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto">
                             <i class="fas fa-plus mr-2"></i> Tambah Barang
                         </a>
+                        <!-- Tombol untuk membuka modal -->
+                        <a href="{{ route('uploadBarang.index') }}"
+                            class="inline-flex items-center justify-center px-5 py-3 bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-red-300 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto">
+                            <i class="fas fa-plus mr-2"></i> Upload Excel
+                        </a>
                     @endcan
 
                     @can('Tambah Kategori')

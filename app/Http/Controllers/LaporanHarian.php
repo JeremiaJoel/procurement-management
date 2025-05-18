@@ -34,33 +34,35 @@ class LaporanHarian extends Controller
     //Fungsi untuk menampilkan tampilan laporan harian
     public function layoutHarian($tanggal)
     {
-        // Validasi dan parsing tanggal
         try {
             $tanggal = Carbon::parse($tanggal)->toDateString();
         } catch (\Exception $e) {
             abort(404, 'Tanggal tidak valid.');
         }
 
-        // Ambil semua data pengadaan berdasarkan tanggal
         $pengadaans = PermintaanPengadaan::whereDate('tanggal', $tanggal)->get();
 
-        // Hitung total harga dari kolom bertipe string seperti "Rp 25.000.000"
         $totalHarga = $pengadaans->sum(function ($item) {
-            // Pastikan field tidak null dan dalam format yang bisa diproses
             $harga = str_replace(['Rp', '.', ' '], '', $item->total_harga);
             return is_numeric($harga) ? (int) $harga : 0;
         });
+
+        $totalHargaApproved = $pengadaans->where('status', 'Approved')->sum(function ($item) {
+            $harga = str_replace(['Rp', '.', ' '], '', $item->total_harga);
+            return is_numeric($harga) ? (int) $harga : 0;
+        });
+
         $jumlahPengadaan = $pengadaans->count();
 
-
-        // Kirim data ke view
         return view('laporan-harian.laporan-harian', [
             'tanggal' => $tanggal,
             'pengadaans' => $pengadaans,
             'totalHarga' => $totalHarga,
-            'jumlahPengadaan' => $jumlahPengadaan
+            'jumlahPengadaan' => $jumlahPengadaan,
+            'totalHargaApproved' => $totalHargaApproved,
         ]);
     }
+
 
     //Fungsi untuk download laporan harian
     public function downloadpdf($tanggal)
@@ -71,17 +73,25 @@ class LaporanHarian extends Controller
             abort(404, 'Tanggal tidak valid.');
         }
 
-
         $pengadaans = PermintaanPengadaan::whereDate('tanggal', $tanggal)->get();
+
         $totalHarga = $pengadaans->sum(function ($item) {
+            return (int) str_replace(['Rp', '.', ' '], '', $item->total_harga);
+        });
+
+        $totalHargaApproved = $pengadaans->where('status', 'Approved')->sum(function ($item) {
             return (int) str_replace(['Rp', '.', ' '], '', $item->total_harga);
         });
 
         $jumlahPengadaan = $pengadaans->count();
 
-
-        $pdf = Pdf::loadView('laporan-harian.laporan-harian', compact('pengadaans', 'totalHarga', 'tanggal', 'jumlahPengadaan'))
-            ->setPaper('a4', 'portrait');
+        $pdf = Pdf::loadView('laporan-harian.laporan-harian', compact(
+            'pengadaans',
+            'totalHarga',
+            'totalHargaApproved',
+            'tanggal',
+            'jumlahPengadaan'
+        ))->setPaper('a4', 'portrait');
 
         return $pdf->download('laporan-harian.pdf');
     }

@@ -51,10 +51,10 @@
                             Lihat Invoice
                         </a>
 
-                        <button class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-invoice-btn"
-                            data-id="{{ $invoice->kode_pengadaan }}">
+                        {{-- <button class="ml-2 hover:underline-offset-1 text-red-600 hover:text-red-900 delete-btn"
+                            data-id="{{ $invoice->kode_invoice }}">
                             Hapus Invoice
-                        </button>
+                        </button> --}}
 
                     </td>
                 </tr>
@@ -64,5 +64,5 @@
 </table>
 {{ $invoices->links() }}
 <script>
-    // const deletePembelianUrl = "{{ route('pembelian.destroy') }}"
+    const deleteInvoiceUrl = "{{ route('invoice.destroy') }}"
 </script>

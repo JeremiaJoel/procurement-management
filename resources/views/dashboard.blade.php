@@ -122,23 +122,6 @@
                                 <i class="fas fa-arrow-right ml-2"></i>
                             </a>
                         </div>
-                        {{-- <div class="bg-white p-4 rounded-lg shadow-lg">
-                            <div class="flex justify-between items-center mb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold">
-                                        1
-                                    </h3>
-                                    <p class="text-gray-600">
-                                        Material Outstanding
-                                    </p>
-                                </div>
-                                <i class="fas fa-star text-green-500 text-3xl"></i>
-                            </div>
-                            <a class="text-red-600 flex items-center" href="#">
-                                Lihat Detail
-                                <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
-                        </div> --}}
                     </div>
                 </section>
                 <section class="mb-6">
@@ -203,13 +186,66 @@
                                 });
                             </script>
                         </div>
-
-
-
                     </div>
                 </section>
+                <section class="mb-6">
+                    <div class="w-full h-[430px] bg-gray-50 border-2 border-gray-300 rounded-lg p-4 flex flex-col">
+                        <h2 class="text-lg font-bold text-gray-700 mb-2 text-center">Pengeluaran 5 Bulan Terakhir</h2>
+                        <div class="flex-1 relative">
+                            <canvas id="pengeluaranLineChart" class="absolute inset-0 w-full h-full"></canvas>
+                        </div>
+                        <script>
+                            const ctx3 = document.getElementById('pengeluaranLineChart');
+
+                            new Chart(ctx3, {
+                                type: 'line',
+                                data: {
+                                    labels: {!! json_encode($labelPengeluaran) !!},
+                                    datasets: [{
+                                        label: 'Total Pengeluaran (Rp)',
+                                        data: {!! json_encode($jumlahPengeluaran) !!},
+                                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                        borderColor: 'rgba(54, 162, 235, 1)',
+                                        borderWidth: 2,
+                                        fill: true,
+                                        tension: 0.3,
+                                        pointRadius: 4,
+                                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                callback: function(value) {
+                                                    return 'Rp ' + value.toLocaleString('id-ID');
+                                                }
+                                            }
+                                        }
+                                    },
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top'
+                                        },
+                                        tooltip: {
+                                            callbacks: {
+                                                label: function(context) {
+                                                    const value = context.raw;
+                                                    return 'Rp ' + value.toLocaleString('id-ID');
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
 
 
+                </section>
             </div>
         </div>
     </div>

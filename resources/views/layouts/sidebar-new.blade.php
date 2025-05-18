@@ -167,9 +167,10 @@
                 @can('Manajemen Utilitas')
                     <li>
                         <a href="{{ route('permissions.index') }}"
-                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
-                        {{ request()->routeIs('permissions.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent  ' }}">
-                            <i class="fas fa-clipboard-list"></i>
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                        {{ request()->routeIs('permissions.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-clipboard-list"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Manajemen Utilitas</span>
                         </a>
@@ -179,9 +180,10 @@
                 @can('Manajemen Role')
                     <li>
                         <a href="{{ route('roles.index') }}"
-                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
-                    {{ request()->routeIs('roles.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                            <i class="fas fa-clipboard-list"></i>
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                        {{ request()->routeIs('roles.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-clipboard-list"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Manajemen Role</span>
                         </a>
@@ -191,9 +193,10 @@
                 @can('Manajemen User')
                     <li>
                         <a href="{{ route('users.index') }}"
-                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 p-4 
-                    {{ request()->routeIs('users.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
-                            <i class="fas fa-clipboard-list"></i>
+                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
+                        {{ request()->routeIs('users.*') ? 'border-l-4 border-red-500 bg-gray-50 text-gray-800' : 'border-l-4 border-transparent' }}">
+                            <span class="inline-flex justify-center items-center ml-4">
+                                <i class="fas fa-clipboard-list"></i>
                             </span>
                             <span class="ml-2 text-sm tracking-wide truncate">Manajemen User</span>
                         </a>
@@ -213,7 +216,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <span class="ml-2 text-sm tracking-wide truncate">Logout</span>
+                            <span class="text-sm tracking-wide truncate ml-1">Logout</span>
                         </button>
                     </form>
 

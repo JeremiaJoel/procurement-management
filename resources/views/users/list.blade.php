@@ -9,12 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <!-- resources/views/permissions/index.blade.php -->
 
 
-<body class="bg-gray-100 font-sans font-semibold">
+<body class="bg-blue-900 font-sans font-semibold">
+    @include('layouts.loader')
+
     <div class="flex h-screen">
         <!-- Sidebar -->
         @include('layouts.sidebar-new')

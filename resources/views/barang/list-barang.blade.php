@@ -72,36 +72,90 @@
                         </li> --}}
                     </ul>
                 </nav>
-                <div class="container mx-auto p-4 font-sans font-semibold ">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <!-- Card 1 -->
+                <div class="container mx-auto p-4 font-sans font-semibold">
+                    <!-- Tombol Toggle -->
+                    <div class="mb-4 text-right">
+                        <button id="toggleViewBtn" class="btn btn-secondary px-4 py-2 rounded">
+                            Ganti Tampilan
+                        </button>
+                    </div>
+
+                    <!-- Tampilan 1: Dengan Gambar -->
+                    <div id="viewWithImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         @foreach ($barangs as $barang)
-                            <div class="bg-white rounded-lg shadow-xl p-9">
-                                <div class="text-xl mb-4 inset-0 text-center">
-                                    {{ $barang->nama }}
-                                </div>
-                                <div class="flex justify-center items-center inset-0">
-                                    <div class="w-full aspect-square overflow-hidden rounded-md border border-blue-300">
-                                        <!-- aspect-square untuk rasio 1:1 -->
-                                        <img alt="{{ $barang->nama }}" class="h-auto object-fill"
-                                            src="{{ asset('storage/' . $barang->image) }}" />
+                            <div class="bg-white rounded-lg shadow-xl p-9 flex flex-col justify-between">
+                                <div>
+                                    <div class="text-xl mb-4 text-center">
+                                        {{ $barang->nama }}
+                                    </div>
+                                    <div class="flex justify-center items-center mb-4">
+                                        <div
+                                            class="w-full aspect-square overflow-hidden rounded-md border border-blue-300">
+                                            <img alt="{{ $barang->nama }}" class="h-auto object-fill"
+                                                src="{{ asset('storage/' . $barang->image) }}" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="p-3 m-2 text-center tracking-wider">
-                                    <button class="btn btn-primary btn-detail" data-id="{{ $barang->barang_id }}">
-                                        Detail
+
+                                <div class="flex justify-center gap-2 flex-wrap">
+                                    <button
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center gap-2 btn-detail"
+                                        data-id="{{ $barang->barang_id }}"
+                                        aria-label="View details of {{ $barang->nama }}">
+                                        <i class="fas fa-info-circle"></i> Detail
                                     </button>
+
                                     @can('Edit Barang')
-                                        <button type="button" class="btn btn-success"
-                                            onclick="window.location.href='{{ route('barang.edit', $barang->barang_id) }}'">
-                                            Edit
+                                        <button type="button"
+                                            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition flex items-center gap-2"
+                                            onclick="window.location.href='{{ route('barang.edit', $barang->barang_id) }}'"
+                                            aria-label="Edit {{ $barang->nama }}">
+                                            <i class="fas fa-edit"></i> Edit
                                         </button>
                                     @endcan
 
                                     @can('Hapus Barang')
-                                        <button type="button" class="btn btn-danger delete-btn"
-                                            data-id="{{ $barang->barang_id }}">
-                                            Delete
+                                        <button type="button"
+                                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition flex items-center gap-2 delete-btn"
+                                            data-id="{{ $barang->barang_id }}" aria-label="Delete {{ $barang->nama }}">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    @endcan
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+
+                    <!-- Tampilan 2: Tanpa Gambar -->
+                    <div id="viewWithoutImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                        @foreach ($barangs as $barang)
+                            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between">
+                                <div>
+                                    <h2 class="text-lg font-semibold text-gray-900 mb-2 truncate"
+                                        title="{{ $barang->nama }}">{{ $barang->nama }}</h2>
+                                    <p class="text-sm text-gray-500 mb-4">ID: {{ $barang->barang_id }}</p>
+                                </div>
+                                <div class="flex justify-center gap-3">
+                                    <button
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center gap-2 btn-detail"
+                                        data-id="{{ $barang->barang_id }}"
+                                        aria-label="View details of {{ $barang->nama }}">
+                                        <i class="fas fa-info-circle"></i> Detail
+                                    </button>
+                                    @can('Edit Barang')
+                                        <button type="button"
+                                            class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition flex items-center gap-2"
+                                            onclick="window.location.href='{{ route('barang.edit', $barang->barang_id) }}'"
+                                            aria-label="Edit {{ $barang->nama }}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    @endcan
+                                    @can('Hapus Barang')
+                                        <button type="button"
+                                            class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition flex items-center gap-2 delete-btn"
+                                            data-id="{{ $barang->barang_id }}" aria-label="Delete {{ $barang->nama }}">
+                                            <i class="fas fa-trash-alt"></i> Delete
                                         </button>
                                     @endcan
                                 </div>
@@ -109,6 +163,23 @@
                         @endforeach
                     </div>
                 </div>
+
+                <script>
+                    const toggleBtn = document.getElementById('toggleViewBtn');
+                    const viewWithImage = document.getElementById('viewWithImage');
+                    const viewWithoutImage = document.getElementById('viewWithoutImage');
+                    let isImageView = true;
+
+                    toggleBtn.addEventListener('click', () => {
+                        isImageView = !isImageView;
+
+                        viewWithImage.classList.toggle('hidden', !isImageView);
+                        viewWithoutImage.classList.toggle('hidden', isImageView);
+
+                        toggleBtn.textContent = isImageView ? 'Ganti Tampilan' : 'Kembali ke Tampilan Bergambar';
+                    });
+                </script>
+
             </div>
         </div>
     </div>
