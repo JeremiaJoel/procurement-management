@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="bg-gray-100 font-sans font-semibold">
+<body class="bg-blue-900 font-sans font-semibold">
     <div class="flex h-screen">
         <!-- Sidebar -->
         @include('layouts.sidebar-new')

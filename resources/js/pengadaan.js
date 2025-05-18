@@ -240,6 +240,17 @@ $(document).ready(function () {
         }
     }
 });
+function showToastSwal(icon, message) {
+    Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: icon, // 'success', 'error', 'warning', 'info'
+        title: message,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+}
 
 //Fungsi untuk submit pengadaan ke database
 $("#submit-pengadaan").click(function () {
@@ -264,7 +275,8 @@ $("#submit-pengadaan").click(function () {
     });
 
     if (tableData.length === 0) {
-        alert("Tidak ada barang yang dipilih!");
+        // alert("Tidak ada barang yang dipilih!");
+        showToastSwal("error", "Tidak ada barang yang dipilih!");
         return;
     }
 
@@ -302,13 +314,14 @@ $("#submit-pengadaan").click(function () {
             pajak: pajak,
         },
         success: function (response) {
-            alert("Data berhasil disimpan!");
+            showToastSwal("success", "Data berhasil disimpan!");
             localStorage.removeItem("savedTable");
             location.reload();
         },
+
         error: function (xhr) {
             console.error("Response Error:", xhr.responseText);
-            alert("Terjadi kesalahan saat menyimpan data!");
+            showToast("Terjadi kesalahan saat menyimpan data!", "bg-red-600");
         },
     });
 });

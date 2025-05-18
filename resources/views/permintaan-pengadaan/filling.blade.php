@@ -18,11 +18,13 @@
 <body class="bg-blue-900 font-sans font-semibold">
     @include('layouts.loader')
 
+
     <div class="flex h-screen">
         <!-- Sidebar -->
         @include('layouts.sidebar-new')
         <!-- Main Content -->
         <div class="flex-1 overflow-y-auto p-6 relative">
+
             <!-- Background Design -->
             <div class="bg-blue-900 min-h-screen w-full absolute top-0 left-0 -z-10">
             </div>
@@ -49,7 +51,7 @@
                 </div>
             </header>
             <div class="bg-white p-6 rounded-lg shadow-lg relative z-10">
-                <x-message></x-message>
+
                 <nav class="mb-6">
                     <ul class="flex space-x-6">
                     </ul>
