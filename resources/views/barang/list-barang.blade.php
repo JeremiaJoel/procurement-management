@@ -76,12 +76,12 @@
                     <!-- Tombol Toggle -->
                     <div class="mb-4 text-right">
                         <button id="toggleViewBtn" class="btn btn-secondary px-4 py-2 rounded">
-                            Ganti Tampilan
+                            Ganti ke Tampilan Bergambar
                         </button>
                     </div>
 
                     <!-- Tampilan 1: Dengan Gambar -->
-                    <div id="viewWithImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div id="viewWithImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 hidden">
                         @foreach ($barangs as $barang)
                             <div class="bg-white rounded-lg shadow-xl p-9 flex flex-col justify-between">
                                 <div>
@@ -128,7 +128,7 @@
 
 
                     <!-- Tampilan 2: Tanpa Gambar -->
-                    <div id="viewWithoutImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+                    <div id="viewWithoutImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($barangs as $barang)
                             <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-between">
                                 <div>
@@ -168,7 +168,7 @@
                     const toggleBtn = document.getElementById('toggleViewBtn');
                     const viewWithImage = document.getElementById('viewWithImage');
                     const viewWithoutImage = document.getElementById('viewWithoutImage');
-                    let isImageView = true;
+                    let isImageView = false;
 
                     toggleBtn.addEventListener('click', () => {
                         isImageView = !isImageView;
@@ -176,7 +176,7 @@
                         viewWithImage.classList.toggle('hidden', !isImageView);
                         viewWithoutImage.classList.toggle('hidden', isImageView);
 
-                        toggleBtn.textContent = isImageView ? 'Ganti Tampilan' : 'Kembali ke Tampilan Bergambar';
+                        toggleBtn.textContent = isImageView ? 'Ganti Tampilan' : 'Ganti ke Tampilan Bergambar';
                     });
                 </script>
 

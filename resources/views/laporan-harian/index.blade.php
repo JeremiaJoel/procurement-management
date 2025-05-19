@@ -68,9 +68,11 @@
                 </nav>
                 <form action="{{ route('laporan-harian.index') }}">
                     @include('components.datepicker')
-                    <button type="submit" class="px-4 btn btn-success mb-[15px] py-2 text-white rounded font-semibold">
+                    <button type="submit"
+                        class="px-6 py-2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white rounded-lg shadow-md font-semibold transition duration-200 ease-in-out mb-4">
                         Terapkan
                     </button>
+
                 </form>
                 <div class="bg-gray-100 rounded p-4">
                     <h2 class="text-xl mb-4">Rekap laporan pengadaan hari:

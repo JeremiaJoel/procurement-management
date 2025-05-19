@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/barang.js'])
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
 
@@ -74,24 +76,38 @@
                 <form action="" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     <div>
-                        <label for="excelFile" class="block text-gray-700 font-semibold mb-2">Pilih file Excel (.xlsx,
-                            .xls)</label>
-                        <input type="file" name="excelFile" id="excelFile" accept=".xlsx,.xls"
+                        <label for="excelFile" class="block text-gray-700 font-semibold mb-2">
+                            Pilih file Excel (.xlsx, .xls)
+                        </label>
+                        <input type="file" name="excel_file" id="file" class="form-control-file"
                             class="block w-full text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                             required />
                     </div>
 
                     <div class="flex items-center space-x-4">
-                        <button type="submit"
-                            class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1 transition">
-                            <i class="fas fa-file-upload mr-2"></i> Upload Excel
-                        </button>
+                        <input type="submit" value="Submit"
+                            class="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1 transition cursor-pointer" />
+
                         <a href="{{ route('barang.index') }}"
                             class="inline-block px-6 py-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition text-center">
                             Cancel
                         </a>
                     </div>
                 </form>
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: '{{ session('success') }}',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                        });
+                    </script>
+                @endif
+
             </div>
         </div>
     </div>

@@ -116,11 +116,14 @@
                                 </div>
                                 <i class="fas fa-clipboard-list text-blue-500 text-3xl"></i>
                             </div>
-                            <a class="text-red-600 flex items-center  hover:text-blue-500"
-                                href="{{ route('pembelian.index') }}">
-                                Lihat Detail
-                                <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
+                            @can('lihat pembelian')
+                                <a class="text-red-600 flex items-center  hover:text-blue-500"
+                                    href="{{ route('pembelian.index') }}">
+                                    Lihat Detail
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            @endcan
+
                         </div>
                     </div>
                 </section>

@@ -44,12 +44,12 @@
     }
 </style>
 
-<body class="bg-gray-100 font-sans font-semibold">
+<body class="bg-blue-900 font-sans font-semibold">
     <div id="loader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div class="relative">
             <div class="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
             <div
-                class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+                class="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-900 animate-spin">
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
                             <i class="fas fa-plus mr-2"></i> Tambah Barang
                         </a>
                         <!-- Tombol untuk membuka modal -->
-                        <a href="{{ route('uploadBarang.index') }}"
+                        <a href="{{ route('upload-barang.index') }}"
                             class="inline-flex items-center justify-center px-5 py-3 bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-red-300 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out w-full sm:w-auto">
                             <i class="fas fa-plus mr-2"></i> Upload Excel
                         </a>
@@ -131,7 +131,12 @@
 
                 </div>
                 <div class="container mx-auto p-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="mb-4 text-right">
+                        <button id="toggleViewBtn" class="btn btn-secondary px-4 py-2 rounded">
+                            Ganti ke Tampilan Bergambar
+                        </button>
+                    </div>
+                    <div id="viewWithImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 hidden">
                         <!-- Card 1 -->
                         @foreach ($categories as $category)
                             <div class="bg-white rounded-lg shadow-xl p-4 hover:scale-105 hover:transition-all cursor-pointer"
@@ -147,32 +152,99 @@
                                             src="{{ asset('storage/' . $category->image) }}" />
                                     </a>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center space-y-2">
+                                    {{-- Tombol Edit --}}
                                     @can('Edit Kategori')
-                                        <button type="button" class="btn btn-success px-3 items-center font-semibold m-2"
+                                        <button type="button"
+                                            class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow transition duration-200 font-semibold"
                                             onclick="event.stopPropagation(); window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'">
+                                            {{-- Icon Edit --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5h10M3 5h4m4 0v14m0 0H5a2 2 0 01-2-2V7a2 2 0 012-2h10m0 0v14" />
+                                            </svg>
                                             Edit
                                         </button>
                                     @endcan
 
+                                    {{-- Tombol Delete --}}
                                     @can('Hapus Kategori')
                                         <button type="button"
-                                            class="btn btn-danger px-2 items-center m-2 delete-btn font-semibold"
+                                            class="inline-flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow transition duration-200 font-semibold delete-btn"
                                             onclick="event.stopPropagation()" data-id="{{ $category->id_kategori }}">
+                                            {{-- Icon Delete --}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
                                             Delete
                                         </button>
                                     @endcan
+                                </div>
 
+                            </div>
+                        @endforeach
+                    </div>
+                    <div id="viewWithoutImage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        @foreach ($categories as $category)
+                            <div onclick="window.location.href='{{ route('barang.by-category', $category->id_kategori) }}'"
+                                class="group bg-white rounded-lg shadow-md p-6 flex flex-col justify-between cursor-pointer hover:ring-2 hover:ring-blue-600 transition">
 
+                                <div class="pointer-events-none">
+                                    <h2 class="text-2xl font-semibold text-center text-gray-900 mb-2 truncate"
+                                        title="{{ $category->nama }}">{{ $category->nama }}</h2>
+                                    <p class="text-sm text-white mb-4">ID: {{ $category->id_kategori }}</p>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mt-4">
+                                    <button
+                                        class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center justify-center gap-2 btn-detail"
+                                        data-id="{{ $category->id_kategori }}" onclick="event.stopPropagation()"
+                                        aria-label="View details of {{ $category->nama }}">
+                                        <i class="fas fa-info-circle"></i> Detail
+                                    </button>
+
+                                    @can('Edit Barang')
+                                        <button type="button"
+                                            class="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition flex items-center justify-center gap-2"
+                                            onclick="event.stopPropagation(); window.location.href='{{ route('kategori.edit', $category->id_kategori) }}'"
+                                            aria-label="Edit {{ $category->nama }}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                    @endcan
+
+                                    @can('Hapus Barang')
+                                        <button type="button"
+                                            class="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition flex items-center justify-center gap-2 delete-btn"
+                                            data-id="{{ $category->id_kategori }}" onclick="event.stopPropagation()"
+                                            aria-label="Delete {{ $category->nama }}">
+                                            <i class="fas fa-trash-alt"></i> Delete
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         @endforeach
-                        <!-- Card 2 -->
-                        <!-- Card 3 -->
-                        <!-- Card 4 -->
-                        <!-- Card n -->
                     </div>
+
+
                 </div>
+                <script>
+                    const toggleBtn = document.getElementById('toggleViewBtn');
+                    const viewWithImage = document.getElementById('viewWithImage');
+                    const viewWithoutImage = document.getElementById('viewWithoutImage');
+                    let isImageView = false;
+
+                    toggleBtn.addEventListener('click', () => {
+                        isImageView = !isImageView;
+
+                        viewWithImage.classList.toggle('hidden', !isImageView);
+                        viewWithoutImage.classList.toggle('hidden', isImageView);
+
+                        toggleBtn.textContent = isImageView ? 'Ganti Tampilan' : 'Ganti ke Tampilan Bergambar';
+                    });
+                </script>
             </div>
         </div>
     </div>

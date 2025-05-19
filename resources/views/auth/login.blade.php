@@ -32,14 +32,16 @@
             <div class="hidden lg:block absolute bottom-0 right-0 w-40 h-40 bg-red-500 rounded-full -mr-20 -mb-20">
             </div>
             <div class="text-center mb-8 relative z-10">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo VicPro" class="w-20 h-20 mx-auto mb-4">
+
                 <h2 class="text-2xl font-bold text-gray-800">
                     WELCOME TO
                 </h2>
                 <h1 class="text-3xl font-bold text-red-500">
-                    Procurement
+                    VicPro
                 </h1>
                 <p class="text-gray-500 mt-2">
-                    Aplikasi Sistem Pengadaan Barang dan Jasa
+                    Aplikasi Rekap Laporan Pengadaan Barang
                 </p>
             </div>
             <form action="{{ route('login') }}" method="POST" class="relative z-10">

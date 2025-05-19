@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
-use App\Imports\ImportExcel;
+use App\Imports\BarangImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Sabberworm\CSS\Property\Import;
+
 
 class BarangController extends Controller
 {
@@ -295,8 +296,9 @@ class BarangController extends Controller
     {
         return view('barang.upload-excel');
     }
-    public function import(Request $request)
+    public function importBarang(Request $request)
     {
-        dd($request->file('excel_file'));
+        Excel::import(new BarangImport, $request->file('excel_file'));
+        return redirect()->back()->with('success', 'Data barang berhasil diimport!');
     }
 }

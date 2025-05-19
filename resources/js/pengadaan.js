@@ -110,8 +110,8 @@ $(document).on("input", ".harga-input", function () {
 
 // Code untuk membuat tabel barang permintaan pengadaan yang dinamis
 $(document).ready(function () {
-    loadTableFromLocalStorage(); // Panggil fungsi untuk memuat data saat halaman dimuat
-
+    // loadTableFromLocalStorage(); // Panggil fungsi untuk memuat data saat halaman dimuat
+    localStorage.removeItem("savedTable");
     // Fungsi untuk menambahkan baris tabel barang
     $("#select-barang").change(function () {
         let selectedBarang = $(this).val();
@@ -266,7 +266,7 @@ $("#submit-pengadaan").click(function () {
         let row = {
             id: $(this).data("id"),
             quantity: $(this).find(".quantity").text().trim(),
-            harga: hargaNumeric, // Sudah dalam bentuk integer
+            harga: hargaNumeric,
         };
 
         if (row.id && row.quantity) {
@@ -275,20 +275,27 @@ $("#submit-pengadaan").click(function () {
     });
 
     if (tableData.length === 0) {
-        // alert("Tidak ada barang yang dipilih!");
         showToastSwal("error", "Tidak ada barang yang dipilih!");
         return;
     }
 
+    // Ambil nilai input form
     let supplierID = $("#supplier").val();
-    let supplierName = $("#supplier option:selected").text(); // Ambil nama supplier
     let namaPengadaan = $("#nama-pengadaan").val().trim();
     let pajak = $("#biayaPpn").val();
     let keterangan = $("#keterangan").val();
-    let tanggal = $("#tanggal").val();
+    let tanggal = $("#tanggal").val(); // Jika ingin validasi tanggal juga
     let totalHarga = updateTotalHarga();
-    console.log(pajak);
-    console.log(typeof pajak);
+
+    // Validasi apakah form terisi semua
+    if (!supplierID || !namaPengadaan || !pajak || !keterangan || !tanggal) {
+        showToastSwal("error", "Lengkapi form terlebih dahulu!");
+        return;
+    }
+
+    // Ambil nama supplier dari select
+    let supplierName = $("#supplier option:selected").text();
+
     console.log("Data yang dikirim:", {
         totalHarga,
         supplierID,
@@ -307,7 +314,7 @@ $("#submit-pengadaan").click(function () {
             _token: $('meta[name="csrf-token"]').attr("content"),
             nama_pengadaan: namaPengadaan,
             supplier_id: supplierID,
-            nama_supplier: supplierName, // Kirim nama supplier
+            nama_supplier: supplierName,
             keterangan: keterangan,
             total_harga: totalHarga,
             items: tableData,
@@ -318,7 +325,6 @@ $("#submit-pengadaan").click(function () {
             localStorage.removeItem("savedTable");
             location.reload();
         },
-
         error: function (xhr) {
             console.error("Response Error:", xhr.responseText);
             showToast("Terjadi kesalahan saat menyimpan data!", "bg-red-600");

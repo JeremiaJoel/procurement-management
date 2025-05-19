@@ -83,21 +83,29 @@
                                 <p class="text-red-500 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Password Baru</label>
+                            <input type="password" id="password" name="password"
+                                placeholder="Kosongkan jika tidak ingin mengubah password"
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                            @error('password')
+                                <p class="text-red-500 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                         <div class="mt-3">
                             @if ($roles->isNotEmpty())
                                 <label for="role-select" class="block text-sm font-medium text-gray-700">Role</label>
                                 <select name="role" id="role-select"
                                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm">
-                                    <option value="" disabled {{ empty($hasRoles) ? 'selected' : '' }}>Pilih Role
-                                    </option>
+                                    <option value="" {{ empty($hasRoles) ? 'selected' : '' }}>— Tidak memilih
+                                        role —</option>
                                     @foreach ($roles->where('name', '!=', 'Super admin') as $role)
                                         <option value="{{ $role->name }}"
                                             {{ $hasRoles->contains($role->id) ? 'selected' : '' }}>
                                             {{ $role->name }}
                                         </option>
                                     @endforeach
-
                                 </select>
                             @else
                                 <p class="text-gray-500">Tidak ada role yang tersedia.</p>

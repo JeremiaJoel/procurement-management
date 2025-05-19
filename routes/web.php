@@ -74,7 +74,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/kategori/{id}/edit', [BarangController::class, 'editKategori'])->name('kategori.edit');
     Route::post('/kategori/{id}', [BarangController::class, 'updateKategori'])->name('kategori.update');
     Route::delete('/kategori', [BarangController::class, 'destroyKategori'])->name('kategori.destroy');
-    Route::get('/barang/import', [BarangController::class, 'excelIndex'])->name('uploadBarang.index');
+    Route::get('/barang-import', [BarangController::class, 'excelIndex'])->name('upload-barang.index');
+    Route::post('/barang-import', [BarangController::class, 'importBarang']);
 
 
 

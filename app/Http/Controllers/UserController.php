@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles; // Pastikan trait ini ada
 use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller implements HasMiddleware
 {
@@ -90,17 +91,31 @@ class UserController extends Controller implements HasMiddleware
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email|unique:users,email,' . $id . ',id'
+            'email' => 'required|email|unique:users,email,' . $id . ',id',
+            'password' => 'nullable|min:6' // Tambahkan validasi password opsional
         ]);
 
         if ($validator->fails()) {
             return redirect()->route('users.edit', $id)->withInput()->withErrors($validator);
         }
+
         $user->name = $request->name;
         $user->email = $request->email;
+
+        // Update password jika diisi
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
         $user->save();
 
-        $user->syncRoles($request->role);
+        // Update role jika ada
+        if ($request->filled('role')) {
+            $user->syncRoles($request->role);
+        } else {
+            $user->syncRoles([]); // Kosongkan role jika tidak dipilih
+        }
+
 
         return redirect()->route('users.index')->with('Success', 'User berhasil diperbarui');
     }
