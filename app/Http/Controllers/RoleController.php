@@ -87,7 +87,7 @@ class RoleController extends Controller implements HasMiddleware
             if (!empty($request->permission)) {
                 $role->syncPermissions($request->permission);
             } else {
-                $role->syncPermissions([]);
+                $role->syncPermission([]);
             }
 
             return redirect()->route('roles.index')->with('Success', 'Role berhasil diperbarui');

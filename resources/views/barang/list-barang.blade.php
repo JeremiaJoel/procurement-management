@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="flex justify-center items-center mb-4">
                                         <div
-                                            class="w-full aspect-square overflow-hidden rounded-md border border-blue-300">
+                                            class="w-full overflow-hidden rounded-md border border-blue-300 aspect-[6/4]">
                                             <img alt="{{ $barang->nama }}" class="h-auto object-fill"
                                                 src="{{ asset('storage/' . $barang->image) }}" />
                                         </div>

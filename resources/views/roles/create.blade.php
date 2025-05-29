@@ -65,7 +65,7 @@
                     </ul>
                 </nav>
                 <section>
-                    <form action="{{ route('roles.create') }}" method="POST" class="space-y-4 w-full">
+                    <form action="{{ route('roles.store') }}" method="POST" class="space-y-4 w-full">
                         @csrf
                         <div>
                             <label for="roles" class="block text-sm font-medium text-gray-700">Nama Role</label>
