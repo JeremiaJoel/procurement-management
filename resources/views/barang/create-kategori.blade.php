@@ -16,7 +16,7 @@
 <!-- resources/views/permissions/index.blade.php -->
 
 
-<body class="bg-gray-100 font-sans font-semibold">
+<body class="bg-blue-900 font-sans font-semibold">
     @include('layouts.loader')
 
     <div class="flex h-screen">
@@ -55,9 +55,12 @@
                     <ul class="flex space-x-6">
 
                         <li>
-                            <p class="text-red-600 border-b-2 border-red-600 cursor-pointer pb-2" href="">
-                                Tambah Kategori
-                            </p>
+                            @can('Tambah Kategori')
+                                <p class="text-red-600 border-b-2 border-red-600 cursor-pointer pb-2" href="">
+                                    Tambah Kategori
+                                </p>
+                            @endcan
+
                         </li>
                     </ul>
                 </nav>

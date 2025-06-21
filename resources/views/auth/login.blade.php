@@ -17,7 +17,7 @@
     </style>
 </head>
 
-<body class="h-screen flex items-center justify-center bg-gray-100 font-sans font-semibold">
+<body class="h-screen flex items-center justify-center bg-white font-sans font-semibold">
     <div
         class="absolute top-0 left-0 w-[600px] h-[600px] bg-red-500 rounded-full -ml-72 -mt-72 z-0 border-[25px] border-red-700">
     </div>
@@ -38,10 +38,10 @@
                     WELCOME TO
                 </h2>
                 <h1 class="text-3xl font-bold text-red-500">
-                    VicPro
+                    ViProc
                 </h1>
                 <p class="text-gray-500 mt-2">
-                    Aplikasi Rekap Laporan Pengadaan Barang
+                    Sistem Informasi Laporan Pengadaan Barang
                 </p>
             </div>
             <form action="{{ route('login') }}" method="POST" class="relative z-10">
@@ -72,8 +72,6 @@
                         @enderror
                     </label>
                 </div>
-
-
                 <button
                     class="bg-gradient-to-r from-red-500 to-blue-950 text-white font-bold py-3 rounded-lg w-full shadow-lg hover:from-red-600 hover:to-blue-600">
                     SIGN IN

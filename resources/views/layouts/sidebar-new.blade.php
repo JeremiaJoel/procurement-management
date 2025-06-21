@@ -12,7 +12,7 @@
         <div class="flex items-center justify-center h-14 border-b">
             <img src="{{ asset('img/logo.png') }}" alt="Logo" class="w-8 h-8 mr-3">
             <span class="text-gray-900 font-semibold text-lg select-none">
-                VicProc
+                ViProc
             </span>
         </div>
 
@@ -36,14 +36,14 @@
                     </a>
                 </li>
 
-                @canany(['Lihat Barang', 'Lihat Supplier'])
+                @canany(['Akses Menu Barang', 'Lihat Supplier'])
                     <li class="px-4">
                         <div class="flex flex-row items-center h-8">
                             <div class="text-sm font-light tracking-wide text-gray-500">Referensi</div>
                         </div>
                     </li>
                 @endcanany
-                @can('Lihat Barang')
+                @can('Akses Menu Barang')
                     <li>
                         <a href="{{ route('barang.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -57,7 +57,7 @@
                     </li>
                 @endcan
 
-                @can('Lihat Supplier')
+                @can('Akses Menu Supplier')
                     <li>
                         <a href="{{ route('supplier.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -75,7 +75,7 @@
                         </a>
                     </li>
                 @endcan
-                @canany(['Lihat Permintaan Pengadaan', 'Lihat Pembelian'])
+                @canany(['Akses Menu Permintaan Pengadaan', 'Akses Menu Pembelian'])
                     <li class="px-4">
                         <div class="flex flex-row items-center h-8">
                             <div class="text-sm font-light tracking-wide text-gray-500">Transaksi</div>
@@ -83,7 +83,7 @@
                     </li>
                 @endcanany
 
-                @can('Lihat Permintaan Pengadaan')
+                @can('Akses Menu Permintaan Pengadaan')
                     <li>
                         <a href="{{ route('pengadaan.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -96,7 +96,7 @@
                     </li>
                 @endcan
 
-                @can('Lihat Pembelian')
+                @can('Akses Menu Pembelian')
                     <li>
                         <a href="{{ route('pembelian.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -109,7 +109,7 @@
                     </li>
                 @endcan
 
-                @canany(['Lihat Invoice', 'Lihat Laporan Harian', 'Lihat Laporan Bulanan'])
+                @canany(['Akses Menu Invoice', 'Akses Menu Laporan Harian', 'Akses Menu Laporan Bulanan'])
                     <li class="px-4">
                         <div class="flex flex-row items-center h-8">
                             <div class="text-sm font-light tracking-wide text-gray-500">Laporan</div>
@@ -117,7 +117,7 @@
                     </li>
                 @endcanany
 
-                @can('Lihat Invoice')
+                @can('Akses Menu Invoice')
                     <li>
                         <a href="{{ route('invoice.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -130,7 +130,7 @@
                     </li>
                 @endcan
 
-                @can('Lihat Laporan Harian')
+                @can('Akses Menu Laporan Harian')
                     <li>
                         <a href="{{ route('laporan-harian.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 
@@ -143,7 +143,7 @@
                     </li>
                 @endcan
 
-                @can('Lihat Laporan Bulanan')
+                @can('Akses Menu Laporan Bulanan')
                     <li>
                         <a href="{{ route('laporan-bulanan.index') }}"
                             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 pr-6 

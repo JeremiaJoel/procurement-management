@@ -199,12 +199,6 @@
                                 </div>
 
                                 <div class="flex flex-col sm:flex-row justify-center items-center gap-3 mt-4">
-                                    <button
-                                        class="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center justify-center gap-2 btn-detail"
-                                        data-id="{{ $category->id_kategori }}" onclick="event.stopPropagation()"
-                                        aria-label="View details of {{ $category->nama }}">
-                                        <i class="fas fa-info-circle"></i> Detail
-                                    </button>
 
                                     @can('Edit Barang')
                                         <button type="button"

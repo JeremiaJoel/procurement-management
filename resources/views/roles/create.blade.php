@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    z
 </head>
 
 <body class="bg-blue-900 font-sans font-semibold">
@@ -82,20 +84,43 @@
                             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-h-[480px] overflow-y-auto pr-2 mb-6">
                             @php
                                 $permissionGroups = [
-                                    'Barang' => ['Lihat Barang', 'Tambah Barang', 'Edit Barang', 'Hapus Barang'],
-                                    'Kategori' => ['Tambah kategori', 'Edit Kategori', 'Hapus Kategori'],
-                                    'Supplier' => ['Lihat Supplier', 'Tambah Supplier', 'Hapus Supplier'],
-                                    'Permintaan Pengadaan' => ['Lihat Permintaan Pengadaan'],
+                                    'Barang' => [
+                                        'Akses Menu Barang',
+                                        'Tambah Barang',
+                                        'Edit Barang',
+                                        'Hapus Barang',
+                                        'Tambah kategori',
+                                        'Edit Kategori',
+                                        'Hapus Kategori',
+                                    ],
+                                    'Supplier' => [
+                                        'Akses Menu Supplier',
+                                        'Tambah Supplier',
+                                        'Hapus Supplier',
+                                        'Edit Supplier',
+                                    ],
+                                    'Permintaan Pengadaan' => ['Akses Menu Permintaan Pengadaan'],
                                     'Pembelian' => [
                                         'Ubah Status Pengadaan',
                                         'Hapus Pengadaan',
-                                        'Lihat Pembelian',
-                                        'Download Pembelian',
+                                        'Akses Menu Pembelian',
+                                        'Download PDF',
                                     ],
-                                    'Invoice' => ['Lihat Invoice', 'Download Invoice', 'Hapus Invoice'],
-                                    'Laporan Harian' => ['Lihat laporan harian'],
-                                    'Laporan Bulanan' => ['Lihat laporan bulanan'],
-                                    'Utility' => ['Manajemen Role', 'Manajemen User'],
+                                    'Invoice' => ['Akses Menu Invoice', 'Download Invoice', 'Detail Invoice'],
+                                    'Laporan Harian' => ['Akses Menu laporan harian', 'Download Laporan Harian'],
+                                    'Laporan Bulanan' => ['Akses Menu laporan bulanan', 'Download Laporan Bulanan'],
+                                    'Manajemen Role' => [
+                                        'Akses Menu Manajemen Role',
+                                        'Tambah Role',
+                                        'Edit Role',
+                                        'Hapus Role',
+                                    ],
+                                    'Manajemen User' => [
+                                        'Akses Menu Manajemen User',
+                                        'Tambah User',
+                                        'Edit User',
+                                        'Hapus User',
+                                    ],
                                 ];
                             @endphp
 
@@ -121,7 +146,10 @@
                                                     class="inline-flex items-center cursor-pointer select-none">
                                                     <input type="checkbox" id="permission-{{ $permission->id }}"
                                                         name="permission[]" value="{{ $permission->name }}"
-                                                        class="form-checkbox h-5 w-5 text-red-600 rounded focus:ring-red-500" />
+                                                        class="form-checkbox h-5 w-5 text-red-600 rounded focus:ring-red-500 permission-checkbox"
+                                                        data-group="{{ $label }}"
+                                                        data-permission="{{ $permission->name }}" />
+
                                                     <span
                                                         class="ml-2 text-gray-800 text-sm">{{ $permission->name }}</span>
                                                 </label>
@@ -144,6 +172,65 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk enable/disable checkbox berdasarkan grup
+            function toggleGroup(groupNames, enable) {
+                groupNames.forEach(function(group) {
+                    $(`.permission-checkbox[data-group="${group}"]`).each(function() {
+                        const perm = $(this).data('permission')?.toLowerCase();
+                        if (!perm.includes('akses menu')) {
+                            $(this).prop('disabled', !enable);
+                            if (!enable) {
+                                $(this).prop('checked', false);
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Saat checkbox berubah
+            $('.permission-checkbox').on('change', function() {
+                const permission = $(this).data('permission')?.toLowerCase();
+                const group = $(this).data('group');
+
+                if (!permission || !group) return;
+
+                if (permission.includes('akses menu')) {
+                    const isChecked = $(this).is(':checked');
+
+                    if (group === 'Barang') {
+                        toggleGroup(['Barang', 'Kategori'], isChecked);
+                    } else {
+                        toggleGroup([group], isChecked);
+                    }
+                }
+            });
+
+            // Inisialisasi awal: matikan semua yang belum dapat akses menu
+            const uniqueGroups = new Set();
+            $('.permission-checkbox').each(function() {
+                const group = $(this).data('group');
+                if (group) uniqueGroups.add(group);
+            });
+
+            uniqueGroups.forEach(function(group) {
+                const masterCheckbox = $(`.permission-checkbox[data-group="${group}"]`).filter(function() {
+                    return $(this).data('permission')?.toLowerCase().includes('akses menu');
+                });
+
+                const isChecked = masterCheckbox.is(':checked');
+
+                if (group === 'Barang') {
+                    toggleGroup(['Barang', 'Kategori'], isChecked);
+                } else {
+                    toggleGroup([group], isChecked);
+                }
+            });
+        });
+    </script>
+
 </body>
+
 
 </html>
